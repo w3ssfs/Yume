@@ -113,7 +113,7 @@ function CategoryFullView({ category, searchQuery }) {
         loading={isLoading}
         pagination={displayPag}
         page={page}
-        onPageChange={(p) => { setPage(p); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+        onPageChange={(p) => { setPage(p); }}
       />
     </div>
   );

@@ -15,7 +15,7 @@ export default function AnimeGrid({
   const hasNext = pagination?.has_next_page;
 
   const changePage = (newPage) => {
-    onPageChange(newPage);   
+    onPageChange(newPage);
   };
 
   const getVisiblePages = () => {
@@ -54,9 +54,17 @@ export default function AnimeGrid({
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        {items.map((anime) => (
-          <AnimeCard key={anime.mal_id} anime={anime} />
-        ))}
+        {items
+          .filter(
+            (anime, index, self) =>
+              index === self.findIndex(a => a.mal_id === anime.mal_id)
+          )
+          .map((anime) => (
+            <AnimeCard
+              key={`${anime.mal_id}-${anime.title}`}
+              anime={anime}
+            />
+          ))}
       </motion.div>
 
       {totalPages > 1 && (
@@ -89,9 +97,8 @@ export default function AnimeGrid({
             {getVisiblePages().map((p) => (
               <motion.button
                 key={p}
-                className={`page-num ${
-                  page === p ? 'page-num--active' : ''
-                }`}
+                className={`page-num ${page === p ? 'page-num--active' : ''
+                  }`}
                 onClick={() => changePage(p)}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}

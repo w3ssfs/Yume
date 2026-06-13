@@ -1,54 +1,125 @@
 import { useState, useEffect, useCallback } from 'react';
 import jikanApi from '../services/jikanApi';
 
-function useAnimeList(fetchFn, deps = []) {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState(null);
+// Cache global
+const cache = new Map();
 
-  const load = useCallback(async (...args) => {
-    setLoading(true);
+function useAnimeList(cacheKey, fetchFn, deps = []) {
+  const [data, setData] = useState(() => {
+    return cache.get(cacheKey)?.data || [];
+  });
+
+  const [pagination, setPagination] = useState(() => {
+    return cache.get(cacheKey)?.pagination || null;
+  });
+
+  const [loading, setLoading] = useState(!cache.has(cacheKey));
+
+  const load = useCallback(async () => {
+    // Já existe cache
+    if (cache.has(cacheKey)) {
+      const cached = cache.get(cacheKey);
+
+      setData(cached.data);
+      setPagination(cached.pagination);
+      setLoading(false);
+
+      return;
+    }
+
     try {
-      const result = await fetchFn(...args);
-      setData(result.data || result);
-      setPagination(result.pagination || null);
-    } catch { setData([]); }
-    finally { setLoading(false); }
-  // eslint-disable-next-line
-  }, deps);
+      setLoading(true);
 
-  useEffect(() => { load(); }, [load]);
-  return { data, loading, pagination, reload: load };
+      const result = await fetchFn();
+
+      const cacheData = {
+        data: result.data || result,
+        pagination: result.pagination || null
+      };
+
+      cache.set(cacheKey, cacheData);
+
+      setData(cacheData.data);
+      setPagination(cacheData.pagination);
+    } catch (err) {
+      console.error(err);
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [cacheKey, fetchFn]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  return {
+    data,
+    loading,
+    pagination,
+    reload: load
+  };
 }
+
+/* ============================= */
+/* LISTAS */
+/* ============================= */
 
 export function useCurrentSeason(page = 1) {
-  return useAnimeList(() => jikanApi.getCurrentSeason(page), [page]);
+  return useAnimeList(
+    `season-${page}`,
+    () => jikanApi.getCurrentSeason(page),
+    [page]
+  );
 }
 
-export function useTopAnime(limit = 20, page = 1) {
-  return useAnimeList(() => jikanApi.getTopAnime(limit, page), [limit, page]);
+export function useTopAnime(limit = 12, page = 1) {
+  return useAnimeList(
+    `top-${limit}-${page}`,
+    () => jikanApi.getTopAnime(limit, page),
+    [limit, page]
+  );
 }
 
-export function useTrendingAnime(limit = 20, page = 1) {
-  return useAnimeList(() => jikanApi.getTrendingAnime(limit, page), [limit, page]);
+export function useTrendingAnime(limit = 12, page = 1) {
+  return useAnimeList(
+    `trending-${limit}-${page}`,
+    () => jikanApi.getTrendingAnime(limit, page),
+    [limit, page]
+  );
 }
 
-export function useTopRatedAnime(limit = 20, page = 1) {
-  return useAnimeList(() => jikanApi.getTopRatedAnime(limit, page), [limit, page]);
+export function useTopRatedAnime(limit = 12, page = 1) {
+  return useAnimeList(
+    `rating-${limit}-${page}`,
+    () => jikanApi.getTopRatedAnime(limit, page),
+    [limit, page]
+  );
 }
 
-export function useUpcomingAnime(limit = 20, page = 1) {
-  return useAnimeList(() => jikanApi.getUpcomingAnime(limit, page), [limit, page]);
+export function useUpcomingAnime(limit = 12, page = 1) {
+  return useAnimeList(
+    `upcoming-${limit}-${page}`,
+    () => jikanApi.getUpcomingAnime(limit, page),
+    [limit, page]
+  );
 }
+
+/* ============================= */
+/* HERO */
+/* ============================= */
 
 export function useFeatured() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    jikanApi.getFeatured().then(setData).catch(() => {}).finally(() => setLoading(false));
-  }, []);
-  return { data, loading };
+  return useAnimeList(
+    'featured',
+    () => jikanApi.getFeatured(),
+    []
+  );
 }
+
+/* ============================= */
+/* BUSCA */
+/* ============================= */
 
 export function useSearch() {
   const [results, setResults] = useState([]);
@@ -56,37 +127,114 @@ export function useSearch() {
   const [pagination, setPagination] = useState(null);
 
   const search = useCallback(async (query, limit = 5, page = 1) => {
-    if (!query || query.length < 2) { setResults([]); return; }
-    setLoading(true);
+    if (!query || query.length < 2) {
+      setResults([]);
+      return;
+    }
+
+    const cacheKey = `search-${query}-${page}`;
+
+    if (cache.has(cacheKey)) {
+      const cached = cache.get(cacheKey);
+
+      setResults(cached.data);
+      setPagination(cached.pagination);
+
+      return;
+    }
+
     try {
-      const res = await jikanApi.searchAnime(query, limit, page);
-      setResults(res.data);
-      setPagination(res.pagination);
-    } catch { setResults([]); }
-    finally { setLoading(false); }
+      setLoading(true);
+
+      const result = await jikanApi.searchAnime(
+        query,
+        limit,
+        page
+      );
+
+      cache.set(cacheKey, result);
+
+      setResults(result.data);
+      setPagination(result.pagination);
+    } catch {
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const clear = useCallback(() => { setResults([]); setPagination(null); }, []);
-  return { results, loading, pagination, search, clear };
+  const clear = useCallback(() => {
+    setResults([]);
+    setPagination(null);
+  }, []);
+
+  return {
+    results,
+    loading,
+    pagination,
+    search,
+    clear
+  };
 }
+
+/* ============================= */
+/* DETALHES */
+/* ============================= */
 
 export function useAnimeDetail(animeId) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (!animeId) return;
+
+    const cacheKey = `detail-${animeId}`;
+
+    if (cache.has(cacheKey)) {
+      setData(cache.get(cacheKey));
+      return;
+    }
+
     setLoading(true);
-    setData(null);
-    jikanApi.getAnimeById(animeId).then(setData).catch(() => {}).finally(() => setLoading(false));
+
+    jikanApi
+      .getAnimeById(animeId)
+      .then((res) => {
+        cache.set(cacheKey, res);
+        setData(res);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, [animeId]);
+
   return { data, loading };
 }
 
+/* ============================= */
+/* RELAÇÕES */
+/* ============================= */
+
 export function useAnimeRelations(animeId) {
   const [data, setData] = useState([]);
+
   useEffect(() => {
     if (!animeId) return;
-    jikanApi.getAnimeRelations(animeId).then(setData).catch(() => {});
+
+    const cacheKey = `relations-${animeId}`;
+
+    if (cache.has(cacheKey)) {
+      setData(cache.get(cacheKey));
+      return;
+    }
+
+    jikanApi
+      .getAnimeRelations(animeId)
+      .then((res) => {
+        cache.set(cacheKey, res);
+        setData(res);
+      })
+      .catch(() => {});
   }, [animeId]);
+
   return data;
 }

@@ -9,9 +9,14 @@ export default function InfiniteCarousel({ items = [], speed = 0.5, showRank = f
   const [paused, setPaused] = useState(false);
   const [trackWidth, setTrackWidth] = useState(0);
   const cardWidth = 195; // card + gap
-
+const uniqueItems = [
+  ...new Map(items.map(item => [item.mal_id, item])).values()
+];
   // Duplicate items to make infinite effect
-  const doubled = [...items, ...items];
+const visibleItems = uniqueItems.slice(0, 24);
+const doubled = [...visibleItems, ...visibleItems];
+
+
 
   useEffect(() => {
     if (trackRef.current) {

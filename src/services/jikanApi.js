@@ -6,13 +6,30 @@ const api = axios.create({
   baseURL: BASE_URL,
   timeout: 12000,
 });
+api.interceptors.response.use(
+  response => response,
+  async error => {
 
+    if (error.response?.status === 429) {
+
+      await new Promise(resolve =>
+        setTimeout(resolve, 2000)
+      );
+
+      return api(error.config);
+    }
+
+    return Promise.reject(error);
+  }
+);
 // ===== CONFIG =====
 
 const CACHE_TTL = 1000 * 60 * 10; // 10 min
 
 const cache = new Map();
 const pendingRequests = new Map();
+
+
 
 const sleep = (ms) =>
   new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,6 +51,8 @@ function getCache(key) {
 
   return item.data;
 }
+
+
 
 function setCache(key, data) {
   cache.set(key, {
@@ -109,7 +128,7 @@ export const jikanApi = {
     };
   },
 
-  async getTopAnime(limit = 20, page = 1) {
+  async getTopAnime(limit = 24, page = 1) {
     const data = await requestWithCache(
       `top-${limit}-${page}`,
       `/top/anime?limit=${limit}&filter=bypopularity&page=${page}`
@@ -121,7 +140,7 @@ export const jikanApi = {
     };
   },
 
-  async getTrendingAnime(limit = 20, page = 1) {
+  async getTrendingAnime(limit = 24, page = 1) {
     const data = await requestWithCache(
       `trending-${limit}-${page}`,
       `/top/anime?limit=${limit}&filter=airing&page=${page}`
@@ -133,7 +152,7 @@ export const jikanApi = {
     };
   },
 
-  async getTopRatedAnime(limit = 20, page = 1) {
+  async getTopRatedAnime(limit = 24, page = 1) {
     const data = await requestWithCache(
       `rated-${limit}-${page}`,
       `/top/anime?limit=${limit}&filter=byrating&page=${page}`
@@ -145,7 +164,7 @@ export const jikanApi = {
     };
   },
 
-  async getUpcomingAnime(limit = 20, page = 1) {
+  async getUpcomingAnime(limit = 24, page = 1) {
     const data = await requestWithCache(
       `upcoming-${limit}-${page}`,
       `/top/anime?limit=${limit}&filter=upcoming&page=${page}`

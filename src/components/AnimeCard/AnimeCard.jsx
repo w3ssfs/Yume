@@ -31,7 +31,7 @@ export default function AnimeCard({ anime, rank }) {
       transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
       onClick={() => openDetail(anime)}
     >
-      {rank && <div className="anime-card__rank">#{rank}</div>}
+      
       <div className="anime-card__image-wrap">
         {image ? <img src={image} alt={title} loading="lazy" /> : <div className="anime-card__no-image">?</div>}
         <div className="anime-card__image-overlay" />
