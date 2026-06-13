@@ -13,8 +13,8 @@ const FOOTER_LINKS = {
   ],
   'Conta': [
 
-    { label: 'Favoritos', path: null },
-    { label: 'Lista de Assistir', path: null },
+    { label: 'Favoritos', path: '/favorite' },
+    { label: 'Lista de Assistir', path: '/favorite'},
   ],
   'Suporte': [
 
