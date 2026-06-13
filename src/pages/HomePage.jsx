@@ -12,6 +12,9 @@ export default function HomePage() {
   const { data: seasonAnimes, loading: l1 } = useCurrentSeason();
   const { data: topAnimes, loading: l2 } = useTopAnime(20);
 
+  const featuredAnime =
+    mockTopAnimes[4] || topAnimes?.[11];
+
   const ready = !l1 && !l2 &&
     (seasonAnimes.length > 0 || topAnimes.length > 0);
 
@@ -24,7 +27,7 @@ export default function HomePage() {
         <SeasonCarouselSection animes={seasonAnimes} />
         <CategoryPanelsSection topAnimes={mockTopAnimes} />
         <TopAnimeCarouselSection animes={topAnimes} />
-        <CallToAction anime={topAnimes[3] || null} />
+        <CallToAction anime={featuredAnime || null} />
 
       </div>
     </>
