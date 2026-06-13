@@ -147,7 +147,7 @@ export function TopAnimeCarouselSection({ animes }) {
       <div className="container">
         <SectionHeader label="Ranking Global" title="Top 20 Animes"
           subtitle="Os mais amados da comunidade"
-          action="Ver ranking completo" onAction={() => navigate('/browse/top100')} />
+          action="Ver ranking completo" onAction={() => navigate('/browse/popular')} />
       </div>
       <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.2 }}>
