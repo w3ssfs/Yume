@@ -6,6 +6,7 @@ import AnimeDetail from './components/AnimeDetail/AnimeDetail';
 import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
 import './styles/globals.css';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/browse" element={<BrowsePage />} />
             <Route path="/browse/:category" element={<BrowsePage />} />
           </Routes>
+          <Footer />
         </DetailProvider>
       </AuthProvider>
     </Router>

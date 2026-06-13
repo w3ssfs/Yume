@@ -6,7 +6,7 @@ import Header from '../components/Header/Header';
 import BrowseCarousel from '../components/Browse/BrowseCarousel';
 import AnimeGrid from '../components/Browse/AnimeGrid';
 import { useDebounce } from '../hooks/useDebounce';
-import { useSearch, useCurrentSeason,useTrendingAnime, useUpcomingAnime } from '../hooks/useAnime';
+import { useSearch, useCurrentSeason, useTrendingAnime, useUpcomingAnime } from '../hooks/useAnime';
 import jikanApi from '../services/jikanApi';
 import './BrowsePage.css';
 
@@ -14,7 +14,7 @@ const CATEGORIES = {
   browse: { label: 'Anime', desc: 'Browse top, airing and upcoming Anime.' },
   trending: { label: 'Trending Now', desc: 'View Anime that is trending right now.' },
   season: { label: 'Temporada 2026', desc: 'View Anime that aired in the current season.' },
-upcoming: { label: 'Próximos', desc: 'View Anime that is airing in the upcoming seasons.' },
+  upcoming: { label: 'Próximos', desc: 'View Anime that is airing in the upcoming seasons.' },
 };
 
 /* Breadcrumb */
@@ -81,12 +81,23 @@ function CategoryFullView({ category, searchQuery }) {
       trending: () => jikanApi.getTrendingAnime(24, page),
       season: () => jikanApi.getCurrentSeason(page),
       upcoming: () => jikanApi.getUpcomingAnime(24, page),
+      popular: () => jikanApi.getTopAnime(24, page),
     };
-    const fn = fetchers[category] ;
-    fn().then((res) => {
-      setData(res.data);
-      setPagination(res.pagination);
-    }).catch(() => setData([])).finally(() => setLoading(false));
+    const fn = fetchers[category];
+
+    if (!fn) {
+      setData([]);
+      setLoading(false);
+      return;
+    }
+
+    fn()
+      .then((res) => {
+        setData(res.data);
+        setPagination(res.pagination);
+      })
+      .catch(() => setData([]))
+      .finally(() => setLoading(false)).catch(() => setData([])).finally(() => setLoading(false));
   }, [category, page, searchQuery]);
 
   useEffect(() => {
