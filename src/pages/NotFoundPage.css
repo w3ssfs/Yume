@@ -1,0 +1,117 @@
+.notfound-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Progress bar */
+.notfound-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  background: transparent;
+}
+
+.notfound-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #e83030, #ff6060);
+  box-shadow: 0 0 10px rgba(232,48,48,0.6);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Content */
+.notfound-content {
+  text-align: center;
+  padding: 0 24px;
+  max-width: 480px;
+}
+
+/* Icon */
+.notfound-icon {
+  margin-bottom: 24px;
+  color: var(--accent-glow);
+}
+
+/* 404 */
+.notfound-title {
+  font-size: clamp(5rem, 15vw, 9rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #7c5cbf, #e86db4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+
+.notfound-heading {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.notfound-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.notfound-code {
+  background: rgba(124,92,191,0.15);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--accent-glow);
+  font-family: monospace;
+}
+
+/* Buttons */
+.notfound-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Primary button */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #7c5cbf, #e86db4);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+/* Secondary button */
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: var(--font-body);
+}

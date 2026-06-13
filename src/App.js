@@ -7,20 +7,26 @@ import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
 import './styles/globals.css';
 import Footer from './components/Footer/Footer';
+import NotFoundPage from './pages/NotFoundPage';
+import MainLayout from './components/Layouts/MainLayout';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
         <DetailProvider>
-          {/* Global detail panel — rendered once, outside routes */}
-          <AnimeDetail />
+          
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/browse" element={<BrowsePage />} />
-            <Route path="/browse/:category" element={<BrowsePage />} />
+            {/* Layout com Header + Footer */}
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/browse" element={<BrowsePage />} />
+              <Route path="/browse/:category" element={<BrowsePage />} />
+            </Route>
+
+            {/* Página sem layout (SEM footer) */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
-          <Footer />
         </DetailProvider>
       </AuthProvider>
     </Router>
