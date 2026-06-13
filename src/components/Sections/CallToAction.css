@@ -1,0 +1,135 @@
+.cta-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.cta-section__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cta-section__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.08;
+  filter: blur(40px);
+}
+
+.cta-section__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(124,92,191,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-secondary) 0%, transparent 20%, transparent 80%, var(--bg-secondary) 100%);
+}
+
+.cta-section__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* Media */
+.cta-section__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+}
+
+.cta-media-frame {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--border-subtle);
+}
+
+.cta-media-frame img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+
+.cta-media-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--bg-card);
+}
+
+.cta-media-frame__glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--gradient-accent);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Text */
+.cta-section__text {
+  order: 1;
+}
+
+.cta-section__heading {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.cta-section__body {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.cta-section__stats {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+
+.cta-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cta-stat__value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.cta-stat__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cta-section__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
