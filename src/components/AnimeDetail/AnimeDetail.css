@@ -307,6 +307,11 @@
   color: var(--text-muted);
   margin-top: 3px;
 }
+.detail-action-btn--active-wl {
+  color: var(--accent-glow);
+  background: rgba(124,92,191,0.15);
+  border: 1px solid rgba(124,92,191,0.4);
+}
 
 /* Live dot (reused) */
 .live-dot {

@@ -135,7 +135,6 @@ export default function BrowsePage() {
 
   const { data: trending, loading: l1 } = useTrendingAnime(12);
   const { data: season, loading: l2 } = useCurrentSeason(1);
-
   const { data: upcoming, loading: l4 } = useUpcomingAnime(12);
 
   useEffect(() => {

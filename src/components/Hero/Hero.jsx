@@ -2,28 +2,38 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FiPlay, FiInfo, FiStar, FiCalendar } from 'react-icons/fi';
 import { useFeatured } from '../../hooks/useAnime';
+import { useDetail } from '../../context/DetailContext';
+import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 
 export default function Hero() {
   const { data: featured } = useFeatured();
   const [anime, setAnime] = useState(null);
   const iframeRef = useRef(null);
+  const { openDetail } = useDetail();
+  const navigate = useNavigate();
+  const display = {
+    mal_id: anime?.mal_id,
+    title: anime?.title_english || anime?.title,
+    images: anime?.images,
+    score: anime?.score,
+    year: anime?.year,
+    genres: anime?.genres || [],
+  };
+  useEffect(() => {
+    async function loadHeroAnime() {
 
 
-useEffect(() => {
-  async function loadHeroAnime() {
-    
+      const response = await fetch(
+        `https://api.jikan.moe/v4/anime/${61316}/full`
+      );
 
-    const response = await fetch(
-      `https://api.jikan.moe/v4/anime/${61316}/full`
-    );
+      const data = await response.json();
+      setAnime(data.data);
+    }
 
-    const data = await response.json();
-    setAnime(data.data);
-  }
-
-  loadHeroAnime();
-}, []);
+    loadHeroAnime();
+  }, []);
 
   // useEffect(() => {
   //   if (featured && featured.length > 0) {
@@ -147,6 +157,7 @@ useEffect(() => {
               className="hero-btn hero-btn--primary"
               whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(124,92,191,0.5)' }}
               whileTap={{ scale: 0.97 }}
+              onClick={() => openDetail(display)}
             >
               <FiPlay size={16} />
               Ver Agora
@@ -156,9 +167,10 @@ useEffect(() => {
               className="hero-btn hero-btn--secondary"
               whileHover={{ scale: 1.04, backgroundColor: 'rgba(255,255,255,0.12)' }}
               whileTap={{ scale: 0.97 }}
+              onClick={() => navigate('/favorite')}
             >
               <FiInfo size={16} />
-              Saiba Mais
+              Meus Animes
             </motion.button>
           </motion.div>
         </motion.div>

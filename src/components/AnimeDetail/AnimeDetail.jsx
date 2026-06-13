@@ -47,7 +47,7 @@ function RelatedCard({ entry, onClick }) {
 
 export default function AnimeDetail() {
   const { selectedAnime, closeDetail, openDetail } = useDetail();
-  const { user, isFavorite, toggleFavorite } = useAuth();
+  const { user, isFavorite, toggleFavorite, isInWatchlist, toggleWatchlist } = useAuth();
   const { data: anime, loading } = useAnimeDetail(selectedAnime?.mal_id);
   const relations = useAnimeRelations(selectedAnime?.mal_id);
   const [bodyLocked, setBodyLocked] = useState(false);
@@ -85,7 +85,7 @@ export default function AnimeDetail() {
   const type = display?.type;
   const trailerUrl = anime?.trailer?.embed_url || null;
   const fav = selectedAnime ? isFavorite(selectedAnime.mal_id) : false;
-
+  const inWL = selectedAnime ? isInWatchlist(selectedAnime.mal_id) : false;
   // Flatten relations to show actual related anime entries
   const relatedEntries = relations.flatMap((rel) =>
     rel.entry.filter((e) => e.type === 'anime').map((e) => ({ ...e, relation: rel.relation }))
@@ -157,12 +157,14 @@ export default function AnimeDetail() {
                       </motion.button>
                     )}
                     <motion.button
-                      className="detail-action-btn detail-action-btn--secondary"
+                      className={`detail-action-btn detail-action-btn--secondary ${inWL ? 'detail-action-btn--active-wl' : ''}`}
+                      onClick={() => selectedAnime && toggleWatchlist(display)}
                       whileHover={{ scale: 1.08 }}
                       whileTap={{ scale: 0.94 }}
+                      title={inWL ? 'Remover da lista' : 'Assistir depois'}
                     >
                       <FiBookmark size={16} />
-                      Assistir depois
+                      {inWL ? 'Na lista' : 'Assistir depois'}
                     </motion.button>
                   </div>
                 </div>
@@ -174,7 +176,9 @@ export default function AnimeDetail() {
                   {/* Genres */}
                   <div className="detail-genres">
                     {genres.slice(0, 4).map((g) => (
-                      <span key={g.mal_id} className="detail-genre-tag">{g.name}</span>
+                      <span key={g.mal_id || g.name} className="detail-genre-tag">
+                        {g.name}
+                      </span>
                     ))}
                   </div>
 

@@ -9,71 +9,10 @@ import Header from '../components/Header/Header';
 import { useAuth } from '../context/AuthContext';
 import { useDetail } from '../context/DetailContext';
 import './FavoritePage.css';
+import AnimeCard from '../components/AnimeCard/AnimeCard';
 
 /* ── Mini anime card for local favorites ── */
-function FavCard({ anime }) {
-  const { openDetail } = useDetail();
-  const { isFavorite, toggleFavorite, isInWatchlist, toggleWatchlist } = useAuth();
-  const fav = isFavorite(anime.animeId);
-  const inWL = isInWatchlist(anime.animeId);
 
-  const display = {
-    mal_id: anime.animeId,
-    title: anime.title,
-    images: { jpg: { image_url: anime.image, large_image_url: anime.image } },
-    score: anime.score,
-    year: anime.year,
-    genres: (anime.genres || []).map((g) => (typeof g === 'string' ? { mal_id: g, name: g } : g)),
-  };
-
-  return (
-    <motion.div
-      className="fav-card"
-      whileHover={{ scale: 1.04, zIndex: 5 }}
-      transition={{ duration: 0.2 }}
-      onClick={() => openDetail(display)}
-    >
-      <div className="fav-card__img-wrap">
-        {anime.image
-          ? <img src={anime.image} alt={anime.title} loading="lazy" />
-          : <div className="fav-card__no-img">?</div>
-        }
-        <div className="fav-card__overlay" />
-
-        {anime.score && (
-          <span className="fav-card__score">⭐ {anime.score}</span>
-        )}
-      </div>
-
-      <div className="fav-card__hover">
-        <p className="fav-card__title">{anime.title}</p>
-        {anime.year && <span className="fav-card__year">{anime.year}</span>}
-        <div className="fav-card__genres">
-          {(anime.genres || []).slice(0, 2).map((g) => {
-            const name = typeof g === 'string' ? g : g.name;
-            return <span key={name} className="fav-card__genre">{name}</span>;
-          })}
-        </div>
-        <div className="fav-card__actions" onClick={(e) => e.stopPropagation()}>
-          <button
-            className={`fav-card__btn ${fav ? 'fav-card__btn--active-pink' : ''}`}
-            onClick={() => toggleFavorite(display)}
-            title={fav ? 'Remover' : 'Favoritar'}
-          >
-            <FiHeart size={13} />
-          </button>
-          <button
-            className={`fav-card__btn ${inWL ? 'fav-card__btn--active-purple' : ''}`}
-            onClick={() => toggleWatchlist(display)}
-            title={inWL ? 'Remover da lista' : 'Assistir depois'}
-          >
-            <FiBookmark size={13} />
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 /* ── Filter bar ── */
 function FilterBar({ search, onSearch, genre, onGenre, year, onYear, allGenres, allYears, onClear }) {
@@ -152,24 +91,24 @@ function NotLoggedIn() {
 /* ── Main Page ── */
 export default function FavoritesPage() {
   const { user, favorites, watchlist } = useAuth();
-  const [tab, setTab]     = useState('favorites'); // 'favorites' | 'watchlist'
+  const [tab, setTab] = useState('favorites'); // 'favorites' | 'watchlist'
   const [search, setSearch] = useState('');
-  const [genre, setGenre]   = useState('');
-  const [year, setYear]     = useState('');
+  const [genre, setGenre] = useState('');
+  const [year, setYear] = useState('');
 
   const activeList = tab === 'favorites' ? favorites : watchlist;
 
   /* Collect all genres and years for filter dropdowns */
   const { allGenres, allYears } = useMemo(() => {
     const genres = new Set();
-    const years  = new Set();
+    const years = new Set();
     activeList.forEach((a) => {
       (a.genres || []).forEach((g) => genres.add(typeof g === 'string' ? g : g.name));
       if (a.year) years.add(String(a.year));
     });
     return {
       allGenres: [...genres].sort(),
-      allYears:  [...years].sort((a, b) => b - a),
+      allYears: [...years].sort((a, b) => b - a),
     };
   }, [activeList]);
 
@@ -177,9 +116,9 @@ export default function FavoritesPage() {
   const filtered = useMemo(() => {
     return activeList.filter((a) => {
       const titleMatch = !search || (a.title || '').toLowerCase().includes(search.toLowerCase());
-      const genreList  = (a.genres || []).map((g) => (typeof g === 'string' ? g : g.name));
+      const genreList = (a.genres || []).map((g) => (typeof g === 'string' ? g : g.name));
       const genreMatch = !genre || genreList.includes(genre);
-      const yearMatch  = !year  || String(a.year) === year;
+      const yearMatch = !year || String(a.year) === year;
       return titleMatch && genreMatch && yearMatch;
     });
   }, [activeList, search, genre, year]);
@@ -230,8 +169,8 @@ export default function FavoritesPage() {
             {activeList.length > 0 && (
               <FilterBar
                 search={search} onSearch={setSearch}
-                genre={genre}   onGenre={setGenre}
-                year={year}     onYear={setYear}
+                genre={genre} onGenre={setGenre}
+                year={year} onYear={setYear}
                 allGenres={allGenres} allYears={allYears}
                 onClear={clearFilters}
               />
@@ -262,7 +201,7 @@ export default function FavoritesPage() {
                   transition={{ duration: 0.3 }}
                 >
                   {filtered.map((anime) => (
-                    <FavCard key={anime.animeId} anime={anime} />
+                    <AnimeCard key={anime.animeId} anime={anime} />
                   ))}
                 </motion.div>
               )}

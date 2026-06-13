@@ -10,15 +10,16 @@ import Footer from './components/Footer/Footer';
 import NotFoundPage from './pages/NotFoundPage';
 import FavoritesPage from './pages/FavoritePage';
 import MainLayout from './components/Layouts/MainLayout';
+import ScrollToTop from './components/ScrollPage/ScrollToTop';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <DetailProvider>
-
-          <Routes>
-            {/* Layout com Header + Footer */}
+        <DetailProvider>          
+          <ScrollToTop />
+          <Routes>            
+            
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/browse" element={<BrowsePage />} />
@@ -26,7 +27,7 @@ function App() {
               <Route path="/favorite" element={<FavoritesPage />} />
             </Route>
 
-            {/* Página sem layout (SEM footer) */}
+            
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </DetailProvider>
