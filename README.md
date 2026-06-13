@@ -1,3 +1,3 @@
 # 🌸 Yume
 
-Descubra, acompanhe e explore seus animes favoritos.
+Descubra, acompanhe e explore seus animes favoritos...
