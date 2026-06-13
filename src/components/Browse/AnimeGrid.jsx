@@ -11,7 +11,10 @@ export default function AnimeGrid({
   page,
   onPageChange
 }) {
-  const totalPages = pagination?.last_visible_page || 1;
+  const totalPages =
+  pagination?.has_next_page
+    ? pagination.last_visible_page
+    : page;
   const hasNext = pagination?.has_next_page;
 
   const changePage = (newPage) => {
@@ -67,7 +70,7 @@ export default function AnimeGrid({
           ))}
       </motion.div>
 
-      {totalPages > 1 && (
+      {items.length > 0 && totalPages > 1 && (
         <div className="anime-grid__pagination">
           <motion.button
             className="page-btn"

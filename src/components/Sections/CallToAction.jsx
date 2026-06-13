@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FiPlay, FiBookOpen } from 'react-icons/fi';
 import './CallToAction.css';
 
+
 export default function CallToAction({ anime }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
   const image = anime?.images?.jpg?.large_image_url;

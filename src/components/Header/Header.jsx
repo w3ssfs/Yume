@@ -11,6 +11,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useDetail } from '../../context/DetailContext';
 import './Header.css';
 
+
 /* ─── Search Dropdown ─── */
 function SearchDropdown({ results, loading, query, onSeeMore }) {
   const { openDetail } = useDetail();

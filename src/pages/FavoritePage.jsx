@@ -103,9 +103,14 @@ export default function FavoritesPage() {
     const genres = new Set();
     const years = new Set();
     activeList.forEach((a) => {
-      (a.genres || []).forEach((g) => genres.add(typeof g === 'string' ? g : g.name));
-      if (a.year) years.add(String(a.year));
+      (a.genres || []).forEach((g) => {
+        if (!g) return;
+
+        const name = typeof g === 'string' ? g : g?.name;
+        if (name) genres.add(name);
+      });
     });
+
     return {
       allGenres: [...genres].sort(),
       allYears: [...years].sort((a, b) => b - a),
@@ -116,7 +121,12 @@ export default function FavoritesPage() {
   const filtered = useMemo(() => {
     return activeList.filter((a) => {
       const titleMatch = !search || (a.title || '').toLowerCase().includes(search.toLowerCase());
-      const genreList = (a.genres || []).map((g) => (typeof g === 'string' ? g : g.name));
+      const genreList = (a.genres || [])
+        .map((g) => {
+          if (!g) return null;
+          return typeof g === 'string' ? g : g?.name;
+        })
+        .filter(Boolean);
       const genreMatch = !genre || genreList.includes(genre);
       const yearMatch = !year || String(a.year) === year;
       return titleMatch && genreMatch && yearMatch;

@@ -132,7 +132,7 @@ export function useSearch() {
       return;
     }
 
-    const cacheKey = `search-${query}-${page}`;
+    const cacheKey = `search-${query}-${limit}-${page}`;
 
     if (cache.has(cacheKey)) {
       const cached = cache.get(cacheKey);
