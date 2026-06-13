@@ -10,6 +10,13 @@ export default function BrowseCarousel({ items = [], loading }) {
   const [canRight, setCanRight] = useState(true);
   const SCROLL = 600;
 
+  const uniqueItems = items.filter(
+    (anime, index, self) =>
+      index === self.findIndex(
+        a => a.mal_id === anime.mal_id
+      )
+  );
+
   function scroll(dir) {
     const el = trackRef.current;
     if (!el) return;
@@ -34,6 +41,9 @@ export default function BrowseCarousel({ items = [], loading }) {
       </div>
     );
   }
+  const ids = items.map(a => a.mal_id);
+
+  
 
   return (
     <div className="browse-carousel">
@@ -44,8 +54,11 @@ export default function BrowseCarousel({ items = [], loading }) {
         </motion.button>
       )}
       <div className="browse-carousel__track" ref={trackRef} onScroll={onScroll}>
-        {items.map((anime) => (
-          <div key={anime.mal_id} className="browse-carousel__item">
+        {uniqueItems.map((anime) => (
+          <div
+            key={anime.mal_id}
+            className="browse-carousel__item"
+          >
             <AnimeCard anime={anime} />
           </div>
         ))}

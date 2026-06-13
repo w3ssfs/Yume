@@ -5,15 +5,15 @@ import { SeasonCarouselSection, CategoryPanelsSection, TopAnimeCarouselSection }
 import CallToAction from '../components/Sections/CallToAction';
 import Footer from '../components/Footer/Footer';
 import PageLoader from '../components/UI/PageLoader';
-import { useCurrentSeason, useTopAnime, useFeatured } from '../hooks/useAnime';
+import { useCurrentSeason, useTopAnime } from '../hooks/useAnime';
+import { mockTopAnimes } from '../data/mockTopAnimes.js';
 
 export default function HomePage() {
   const { data: seasonAnimes, loading: l1 } = useCurrentSeason();
   const { data: topAnimes, loading: l2 } = useTopAnime(20);
-  const { data: featured, loading: l3 } = useFeatured();
 
-  const ready = !l1 && !l2 && !l3 &&
-    (seasonAnimes.length > 0 || topAnimes.length > 0 || featured.length > 0);
+  const ready = !l1 && !l2 && 
+    (seasonAnimes.length > 0 || topAnimes.length > 0);
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function HomePage() {
         <Header />
         <Hero />
         <SeasonCarouselSection animes={seasonAnimes} />
-        <CategoryPanelsSection topAnimes={topAnimes} />
+        <CategoryPanelsSection topAnimes={mockTopAnimes} />
         <TopAnimeCarouselSection animes={topAnimes} />
         <CallToAction anime={topAnimes[3] || null} />
         <Footer />

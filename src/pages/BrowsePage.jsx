@@ -6,7 +6,7 @@ import Header from '../components/Header/Header';
 import BrowseCarousel from '../components/Browse/BrowseCarousel';
 import AnimeGrid from '../components/Browse/AnimeGrid';
 import { useDebounce } from '../hooks/useDebounce';
-import { useSearch, useCurrentSeason, useTopAnime, useTrendingAnime, useTopRatedAnime, useUpcomingAnime } from '../hooks/useAnime';
+import { useSearch, useCurrentSeason,useTrendingAnime, useUpcomingAnime } from '../hooks/useAnime';
 import jikanApi from '../services/jikanApi';
 import './BrowsePage.css';
 
@@ -14,9 +14,7 @@ const CATEGORIES = {
   browse: { label: 'Anime', desc: 'Browse top, airing and upcoming Anime.' },
   trending: { label: 'Trending Now', desc: 'View Anime that is trending right now.' },
   season: { label: 'Temporada 2026', desc: 'View Anime that aired in the current season.' },
-  top100: { label: 'Top 100', desc: 'View highly rated Anime of all time.' },
-  popular: { label: 'Popular', desc: 'View the most popular Anime of all time.' },
-  upcoming: { label: 'Próximos', desc: 'View Anime that is airing in the upcoming seasons.' },
+upcoming: { label: 'Próximos', desc: 'View Anime that is airing in the upcoming seasons.' },
 };
 
 /* Breadcrumb */
@@ -82,12 +80,9 @@ function CategoryFullView({ category, searchQuery }) {
     const fetchers = {
       trending: () => jikanApi.getTrendingAnime(24, page),
       season: () => jikanApi.getCurrentSeason(page),
-      top100: () => jikanApi.getTopRatedAnime(24, page),
-      popular: () => jikanApi.getTopAnime(24, page),
       upcoming: () => jikanApi.getUpcomingAnime(24, page),
-      browse: () => jikanApi.getTopAnime(24, page),
     };
-    const fn = fetchers[category] || fetchers.browse;
+    const fn = fetchers[category] ;
     fn().then((res) => {
       setData(res.data);
       setPagination(res.pagination);
@@ -129,7 +124,7 @@ export default function BrowsePage() {
 
   const { data: trending, loading: l1 } = useTrendingAnime(12);
   const { data: season, loading: l2 } = useCurrentSeason(1);
-  const { data: popular, loading: l3 } = useTopAnime(12);
+
   const { data: upcoming, loading: l4 } = useUpcomingAnime(12);
 
   useEffect(() => {
@@ -179,8 +174,6 @@ export default function BrowsePage() {
               items={trending} loading={l1} onViewAll={() => navigate('/browse/trending')} />
             <CategoryRow title="Temporada 2026" desc="View Anime that aired in the current season."
               items={season} loading={l2} onViewAll={() => navigate('/browse/season')} />
-            <CategoryRow title="Popular" desc="View the most popular Anime of all time."
-              items={popular} loading={l3} onViewAll={() => navigate('/browse/popular')} />
             <CategoryRow title="Próximos" desc="View Anime that is airing in the upcoming seasons."
               items={upcoming} loading={l4} onViewAll={() => navigate('/browse/upcoming')} />
           </div>

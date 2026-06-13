@@ -20,8 +20,7 @@
 
 .browse-carousel__arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: calc(50% - 21px);
   z-index: 5;
   width: 42px;
   height: 42px;
@@ -37,8 +36,8 @@
   transition: background var(--transition-fast);
 }
 .browse-carousel__arrow:hover { background: rgba(124,92,191,0.3); }
-.browse-carousel__arrow--left { left: -18px; }
-.browse-carousel__arrow--right { right: -18px; }
+.browse-carousel__arrow--left { left: -28px; }
+.browse-carousel__arrow--right { right: -28px; }
 
 .browse-carousel__skeleton {
   width: 175px;

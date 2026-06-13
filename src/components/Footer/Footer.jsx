@@ -9,17 +9,15 @@ const FOOTER_LINKS = {
     { label: 'Início', path: '/' },
     { label: 'Temporada Atual', path: '/browse/season' },
     { label: 'Trending', path: '/browse/trending' },
-    { label: 'Top 100', path: '/browse/top100' },
     { label: 'Próximos', path: '/browse/upcoming' },
   ],
   'Conta': [
-    { label: 'Entrar com Google', path: null },
+
     { label: 'Favoritos', path: null },
     { label: 'Lista de Assistir', path: null },
   ],
   'Suporte': [
-    { label: 'FAQ', path: null },
-    { label: 'Contato', path: null },
+
     { label: 'Privacidade', path: null },
     { label: 'Termos de Uso', path: null },
     { label: 'Sobre', path: null },
@@ -41,7 +39,7 @@ export default function Footer() {
       <div className="footer__top">
         <div className="container footer__top-inner">
           <div className="footer__brand">
-            <div className="footer__logo" onClick={() => navigate('/')} style={{ cursor:'pointer' }}>
+            <div className="footer__logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
               <span className="footer__logo-jp">夢</span>
               <span className="footer__logo-text">yume</span>
             </div>
@@ -76,7 +74,7 @@ export default function Footer() {
       <div className="footer__bottom">
         <div className="container footer__bottom-inner">
           <p className="footer__copyright">
-            © 2024 Yume Anime. Dados fornecidos por{' '}
+            © 2026 Yume Anime. Dados fornecidos por{' '}
             <a href="https://jikan.moe" target="_blank" rel="noreferrer" className="footer__link-inline">Jikan API</a>
             {' '}& <a href="https://myanimelist.net" target="_blank" rel="noreferrer" className="footer__link-inline">MyAnimeList</a>
           </p>
