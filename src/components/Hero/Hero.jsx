@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FiPlay, FiInfo, FiStar, FiCalendar } from 'react-icons/fi';
+import { FiPlay, FiInfo, FiStar, FiCalendar, FiHeart  } from 'react-icons/fi';
 import { useFeatured } from '../../hooks/useAnime';
 import { useDetail } from '../../context/DetailContext';
 import { useNavigate } from 'react-router-dom';
@@ -35,11 +35,6 @@ export default function Hero() {
     loadHeroAnime();
   }, []);
 
-  // useEffect(() => {
-  //   if (featured && featured.length > 0) {
-  //     setAnime(featured[0]);
-  //   }
-  // }, [featured]);
 
   const title = anime?.title_english || anime?.title || '';
   const image = anime?.images?.jpg?.large_image_url || anime?.images?.jpg?.image_url || '';
@@ -47,7 +42,7 @@ export default function Hero() {
     ? anime.synopsis.slice(0, 220) + (anime.synopsis.length > 220 ? '...' : '')
     : 'Carregando...';
 
-  // Build autoplay loop embed URL
+ 
   const rawTrailer = anime?.trailer?.embed_url;
   let trailerUrl = null;
   if (rawTrailer) {
@@ -57,7 +52,7 @@ export default function Hero() {
 
   return (
     <section className="hero">
-      {/* Background layer */}
+      
       <div className="hero__bg">
         {trailerUrl ? (
           <iframe
@@ -76,7 +71,7 @@ export default function Hero() {
         <div className="hero__bg-gradient" />
       </div>
 
-      {/* Content */}
+      
       {anime && (
         <motion.div
           className="hero__content container"
@@ -84,7 +79,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
         >
-          {/* Genre tags */}
+          
           <motion.div
             className="hero-slide__genres"
             initial={{ opacity: 0, x: -20 }}
@@ -96,7 +91,7 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* Title */}
+          
           <motion.h1
             className="hero-slide__title"
             initial={{ opacity: 0, y: 20 }}
@@ -106,7 +101,7 @@ export default function Hero() {
             {title}
           </motion.h1>
 
-          {/* Meta pills */}
+          
           <motion.div
             className="hero-slide__meta"
             initial={{ opacity: 0 }}
@@ -136,7 +131,7 @@ export default function Hero() {
             )}
           </motion.div>
 
-          {/* Synopsis */}
+          
           <motion.p
             className="hero-slide__synopsis"
             initial={{ opacity: 0, y: 10 }}
@@ -146,7 +141,7 @@ export default function Hero() {
             {synopsis}
           </motion.p>
 
-          {/* Buttons */}
+          
           <motion.div
             className="hero-slide__actions"
             initial={{ opacity: 0, y: 10 }}
@@ -155,7 +150,7 @@ export default function Hero() {
           >
             <motion.button
               className="hero-btn hero-btn--primary"
-              whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(124,92,191,0.5)' }}
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => openDetail(display)}
             >
@@ -169,14 +164,14 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/favorite')}
             >
-              <FiInfo size={16} />
+              <FiHeart size={16} />
               Meus Animes
             </motion.button>
           </motion.div>
         </motion.div>
       )}
 
-      {/* Scroll hint */}
+      
       <motion.div
         className="hero__scroll-hint"
         animate={{ y: [0, 8, 0] }}

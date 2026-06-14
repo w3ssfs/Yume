@@ -11,10 +11,6 @@ import { useDetail } from '../context/DetailContext';
 import './FavoritePage.css';
 import AnimeCard from '../components/AnimeCard/AnimeCard';
 
-/* ── Mini anime card for local favorites ── */
-
-
-/* ── Filter bar ── */
 function FilterBar({ search, onSearch, genre, onGenre, year, onYear, allGenres, allYears, onClear }) {
   const hasFilter = search || genre || year;
   return (
@@ -52,7 +48,7 @@ function FilterBar({ search, onSearch, genre, onGenre, year, onYear, allGenres, 
   );
 }
 
-/* ── Empty state ── */
+
 function Empty({ tab }) {
   const navigate = useNavigate();
   return (
@@ -71,7 +67,7 @@ function Empty({ tab }) {
   );
 }
 
-/* ── Not logged in ── */
+
 function NotLoggedIn() {
   const { handleLogin } = useAuth();
   return (
@@ -88,10 +84,10 @@ function NotLoggedIn() {
   );
 }
 
-/* ── Main Page ── */
+
 export default function FavoritesPage() {
   const { user, favorites, watchlist } = useAuth();
-  const [tab, setTab] = useState('favorites'); // 'favorites' | 'watchlist'
+  const [tab, setTab] = useState('favorites'); 
   const [search, setSearch] = useState('');
   const [genre, setGenre] = useState('');
   const [year, setYear] = useState('');
@@ -100,7 +96,7 @@ export default function FavoritesPage() {
 
   const activeList = tab === 'favorites' ? favorites : watchlist;
 
-  /* Collect all genres and years for filter dropdowns */
+  
   const { allGenres, allYears } = useMemo(() => {
     const genres = new Set();
     const years = new Set();
@@ -120,7 +116,7 @@ export default function FavoritesPage() {
     };
   }, [activeList]);
 
-  /* Filtered list */
+
   const filtered = useMemo(() => {
     return activeList.filter((a) => {
       const titleMatch = !search || (a.title || '').toLowerCase().includes(search.toLowerCase());
@@ -136,10 +132,9 @@ export default function FavoritesPage() {
     });
   }, [activeList, search, genre, year]);
 
-  /* Reset page when filters or tab change */
+  
   useEffect(() => { setPage(1); }, [search, genre, year, tab]);
 
-  /* Paginated slice */
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paged = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
@@ -152,7 +147,7 @@ export default function FavoritesPage() {
     <div className="fav-page">
       <Header />
       <div className="fav-page__inner container">
-        {/* Breadcrumb */}
+        
         <nav className="breadcrumb">
           <Link to="/" className="breadcrumb__item"><FiHome size={14} />Home</Link>
           <FiChevronRight size={13} className="breadcrumb__sep" />
@@ -166,7 +161,7 @@ export default function FavoritesPage() {
           </div>
         </div>
 
-        {/* Tabs */}
+        
         <div className="fav-tabs">
           {[
             { key: 'favorites', label: 'Favoritos', icon: <FiHeart size={15} />, count: favorites.length },
@@ -188,7 +183,7 @@ export default function FavoritesPage() {
           <NotLoggedIn />
         ) : (
           <>
-            {/* Filter bar */}
+            
             {activeList.length > 0 && (
               <FilterBar
                 search={search} onSearch={setSearch}
@@ -199,7 +194,7 @@ export default function FavoritesPage() {
               />
             )}
 
-            {/* Results info */}
+            
             {(search || genre || year) && (
               <p className="fav-results-info">
                 {filtered.length} resultado{filtered.length !== 1 ? 's' : ''}
@@ -209,7 +204,7 @@ export default function FavoritesPage() {
               </p>
             )}
 
-            {/* Grid */}
+            
             <AnimatePresence mode="wait">
               {filtered.length === 0 ? (
                 <motion.div key="empty"
@@ -230,7 +225,7 @@ export default function FavoritesPage() {
               )}
             </AnimatePresence>
 
-            {/* Pagination */}
+            
             {filtered.length > PAGE_SIZE && (
               <div className="fav-pagination">
                 <motion.button

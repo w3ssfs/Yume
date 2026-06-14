@@ -32,7 +32,7 @@ export default function PageLoader({ ready }) {
 
   return (
     <div className="page-loader">
-      {/* Red bar at very top */}
+      
       <div className="page-loader__bar-track">
         <motion.div
           className="page-loader__bar"
@@ -46,7 +46,7 @@ export default function PageLoader({ ready }) {
         />
       </div>
 
-      {/* Full-screen overlay while loading */}
+      
       <AnimatePresence>
         {!ready && (
           <motion.div

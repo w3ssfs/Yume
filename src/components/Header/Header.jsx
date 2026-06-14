@@ -12,7 +12,7 @@ import { useDetail } from '../../context/DetailContext';
 import './Header.css';
 
 
-/* ─── Search Dropdown ─── */
+
 function SearchDropdown({ results, loading, query, onSeeMore }) {
   const { openDetail } = useDetail();
   if (!query || query.length < 2) return null;
@@ -63,7 +63,7 @@ function SearchDropdown({ results, loading, query, onSeeMore }) {
   );
 }
 
-/* ─── Nav Grid (hover) ─── */
+
 const NAV_ITEMS = [
   { icon: <FiGlobe size={19}/>,      label: 'Browse',          desc: 'Browse top, airing e próximos.',           path: '/browse' },
   { icon: <FiTrendingUp size={19}/>, label: 'Trending Now',    desc: 'Animes em alta agora.',                    path: '/browse/trending' },
@@ -105,7 +105,7 @@ function NavGridMenu() {
   );
 }
 
-/* ─── User Menu (hover) — only Favoritos + Sair ─── */
+
 function UserMenu() {
   const { user, handleLogin, handleLogout, loginError } = useAuth();
   const [open, setOpen] = useState(false);
@@ -200,7 +200,7 @@ function UserMenu() {
   );
 }
 
-/* ─── Main Header ─── */
+
 export default function Header() {
   const [expanded, setExpanded] = useState(false);
   const [query, setQuery]       = useState('');

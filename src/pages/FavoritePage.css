@@ -157,28 +157,28 @@
   backdrop-filter: blur(8px);
 }
 
-/* hover */
+
 .fav-select:hover {
   border-color: rgba(124, 92, 191, 0.6);
   color: var(--text-primary);
   box-shadow: 0 0 0 2px rgba(124, 92, 191, 0.12);
 }
 
-/* focus (quando abre) */
+
 .fav-select:focus {
   border-color: var(--accent-glow);
   box-shadow: 0 0 0 3px rgba(124, 92, 191, 0.18);
   color: var(--text-primary);
 }
 
-/* options (lista dropdown) */
+
 .fav-select option {
   background: #121225;
   color: var(--text-primary);
   padding: 10px;
 }
 
-/* option hover (alguns browsers) */
+
 .fav-select option:hover {
   background: rgba(124, 92, 191, 0.4);
 }
@@ -210,13 +210,13 @@
     margin-top: -8px;
 }
 
-/* Grid */
+
 .fav-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 20px;
 
-    /* deixa mais “catalogo” igual browse */
+    
     align-items: start;
 }
 
@@ -224,7 +224,7 @@
     opacity: 0.9;
 }
 
-/* Fav card */
+
 .fav-card {
     position: relative;
     border-radius: var(--radius-md);

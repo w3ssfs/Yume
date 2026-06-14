@@ -33,18 +33,14 @@ function setCache(key, data) {
   cache.set(key, { data, timestamp: Date.now() });
 }
 
-// ===== GLOBAL REQUEST QUEUE =====
-// Jikan allows ~3 req/s (and ~60/min). We serialize ALL requests through a
-// single queue with a minimum gap between them, so concurrent page loads
-// never fire bursts that trigger 429s in the first place.
 
-const MIN_GAP_MS = 400; // ~2.5 req/s, safely under the 3/s limit
+const MIN_GAP_MS = 400; 
 let queue = Promise.resolve();
 
 function enqueue(task) {
   const run = () => task();
-  const result = queue.then(run, run); // run even if a previous task rejected
-  // Schedule the next slot regardless of success/failure, after the gap
+  const result = queue.then(run, run); 
+ 
   queue = result.then(
     () => sleep(MIN_GAP_MS),
     () => sleep(MIN_GAP_MS)
@@ -52,20 +48,19 @@ function enqueue(task) {
   return result;
 }
 
-// ===== REQUEST (with cache + queue + retry/backoff on 429) =====
 
 async function requestWithCache(key, endpoint, retries = 4) {
   const cached = getCache(key);
   if (cached) return cached;
 
-  // Avoid duplicate concurrent calls for the same resource
+
   if (pendingRequests.has(key)) {
     return pendingRequests.get(key);
   }
 
   const promise = (async () => {
     let attempt = 0;
-    // eslint-disable-next-line no-constant-condition
+   
     while (true) {
       try {
         const response = await enqueue(() => api.get(endpoint));
@@ -76,7 +71,7 @@ async function requestWithCache(key, endpoint, retries = 4) {
         const status = error.response?.status;
 
         if (status === 429 && attempt < retries) {
-          // Exponential backoff: 1s, 2s, 4s, 8s
+         
           const backoff = 1000 * Math.pow(2, attempt);
           await sleep(backoff);
           attempt += 1;
@@ -96,8 +91,6 @@ async function requestWithCache(key, endpoint, retries = 4) {
     pendingRequests.delete(key);
   }
 }
-
-// ===== API =====
 
 export const jikanApi = {
   async getCurrentSeason(page = 1) {
@@ -148,7 +141,7 @@ export const jikanApi = {
     return data.data;
   },
 
-  // Internal raw fetch for BrowsePage dynamic filter URLs
+  
   async _rawFetch(endpoint) {
     const data = await requestWithCache(`raw-${endpoint}`, endpoint);
     return { data: data.data, pagination: data.pagination };

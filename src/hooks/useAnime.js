@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import jikanApi from '../services/jikanApi';
 
-// Cache global
 const cache = new Map();
 
 function useAnimeList(cacheKey, fetchFn, deps = []) {
@@ -16,7 +15,7 @@ function useAnimeList(cacheKey, fetchFn, deps = []) {
   const [loading, setLoading] = useState(!cache.has(cacheKey));
 
   const load = useCallback(async () => {
-    // Já existe cache
+  
     if (cache.has(cacheKey)) {
       const cached = cache.get(cacheKey);
 
@@ -61,9 +60,6 @@ function useAnimeList(cacheKey, fetchFn, deps = []) {
   };
 }
 
-/* ============================= */
-/* LISTAS */
-/* ============================= */
 
 export function useCurrentSeason(page = 1) {
   return useAnimeList(

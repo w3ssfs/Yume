@@ -54,7 +54,7 @@ export default function AnimeDetail() {
 
   const isOpen = !!selectedAnime;
 
-  // Lock body scroll when panel is open
+  
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -66,7 +66,7 @@ export default function AnimeDetail() {
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  // Close on Escape
+  
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape') closeDetail(); };
     window.addEventListener('keydown', handler);
@@ -86,7 +86,7 @@ export default function AnimeDetail() {
   const trailerUrl = anime?.trailer?.embed_url || null;
   const fav = selectedAnime ? isFavorite(selectedAnime.mal_id) : false;
   const inWL = selectedAnime ? isInWatchlist(selectedAnime.mal_id) : false;
-  // Flatten relations to show actual related anime entries
+  
   const relatedEntries = relations.flatMap((rel) =>
     rel.entry.filter((e) => e.type === 'anime').map((e) => ({ ...e, relation: rel.relation }))
   ).slice(0, 10);
@@ -95,7 +95,7 @@ export default function AnimeDetail() {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          
           <motion.div
             className="detail-backdrop"
             initial={{ opacity: 0 }}
@@ -105,7 +105,7 @@ export default function AnimeDetail() {
             onClick={closeDetail}
           />
 
-          {/* Panel */}
+          
           <motion.aside
             className="detail-panel"
             initial={{ x: '100%' }}
@@ -113,7 +113,7 @@ export default function AnimeDetail() {
             exit={{ x: '100%' }}
             transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
           >
-            {/* Close button */}
+            
             <motion.button
               className="detail-close"
               onClick={closeDetail}
@@ -124,7 +124,7 @@ export default function AnimeDetail() {
             </motion.button>
 
             <div className="detail-scroll">
-              {/* Trailer / Hero image */}
+              
               {loading ? (
                 <div className="detail-trailer detail-trailer--skeleton" />
               ) : trailerUrl ? (
@@ -136,13 +136,13 @@ export default function AnimeDetail() {
                 </div>
               )}
 
-              {/* Card row: cover + info */}
+              
               <div className="detail-info-row">
                 <div className="detail-cover-wrap">
                   {image && (
                     <img src={image} alt={title} className="detail-cover" loading="lazy" />
                   )}
-                  {/* Action buttons */}
+                  
                   <div className="detail-actions">
                     {user && (
                       <motion.button
@@ -169,11 +169,11 @@ export default function AnimeDetail() {
                   </div>
                 </div>
 
-                {/* Right info */}
+               
                 <div className="detail-meta-col">
                   <h2 className="detail-title">{title}</h2>
 
-                  {/* Genres */}
+                 
                   <div className="detail-genres">
                     {genres.slice(0, 4).map((g) => (
                       <span key={g.mal_id || g.name} className="detail-genre-tag">
@@ -182,7 +182,7 @@ export default function AnimeDetail() {
                     ))}
                   </div>
 
-                  {/* Stats grid */}
+                  
                   <div className="detail-stats">
                     {score && (
                       <div className="detail-stat">
@@ -214,7 +214,7 @@ export default function AnimeDetail() {
                     )}
                   </div>
 
-                  {/* Status badge */}
+                  
                   {status && (
                     <span className={`detail-status ${status === 'Currently Airing' ? 'detail-status--live' : ''}`}>
                       {status === 'Currently Airing' && <span className="live-dot" />}
@@ -222,7 +222,7 @@ export default function AnimeDetail() {
                     </span>
                   )}
 
-                  {/* MAL link */}
+                  
                   {display?.url && (
                     <a
                       href={display.url}
@@ -236,7 +236,7 @@ export default function AnimeDetail() {
                 </div>
               </div>
 
-              {/* Synopsis */}
+              
               {synopsis && (
                 <div className="detail-section">
                   <h3 className="detail-section__title">Sinopse</h3>
@@ -244,7 +244,7 @@ export default function AnimeDetail() {
                 </div>
               )}
 
-              {/* Related */}
+              
               {relatedEntries.length > 0 && (
                 <div className="detail-section">
                   <h3 className="detail-section__title">Relacionados</h3>

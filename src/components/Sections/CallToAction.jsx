@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FiPlay, FiBookOpen } from 'react-icons/fi';
@@ -12,19 +13,19 @@ export default function CallToAction({ anime }) {
 
   return (
     <section className="cta-section" ref={ref}>
-      {/* Ambient background */}
+
       <div className="cta-section__bg">
         {image && <img src={image} alt="" aria-hidden />}
         <div className="cta-section__bg-overlay" />
       </div>
 
       <div className="container cta-section__inner">
-        {/* Video/image side */}
+
         <motion.div
           className="cta-section__media"
           initial={{ opacity: 0, x: 60 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.65, ease: [0.4,0,0.2,1] }}
+          transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
         >
           <div className="cta-media-frame">
             {image ? (
@@ -36,12 +37,12 @@ export default function CallToAction({ anime }) {
           </div>
         </motion.div>
 
-        {/* Text side */}
+
         <motion.div
           className="cta-section__text"
           initial={{ opacity: 0, x: -60 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.65, delay: 0.1, ease: [0.4,0,0.2,1] }}
+          transition={{ duration: 0.65, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
         >
           <span className="section-label">Descubra Agora</span>
 
@@ -70,23 +71,25 @@ export default function CallToAction({ anime }) {
           </div>
 
           <div className="cta-section__actions">
-            <motion.button
-              className="hero-btn hero-btn--primary"
-              whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(124,92,191,0.5)' }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <FiPlay size={16} />
-              Começar a Assistir
-            </motion.button>
-
-            <motion.button
-              className="hero-btn hero-btn--secondary"
+            <motion.div
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
-              <FiBookOpen size={16} />
-              Explorar Catálogo
-            </motion.button>
+              <Link to="/browse" className="hero-btn hero-btn--primary">
+                <FiPlay size={16} />
+                Conheça os Animes
+              </Link>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Link to="/browse/popular" className="hero-btn hero-btn--secondary">
+                <FiBookOpen size={16} />
+                Explorar Catálogo
+              </Link>
+            </motion.div>
           </div>
         </motion.div>
       </div>

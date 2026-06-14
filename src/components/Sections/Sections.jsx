@@ -30,7 +30,7 @@ function SectionHeader({ label, title, subtitle, action, onAction }) {
   );
 }
 
-/* Season Carousel */
+
 export function SeasonCarouselSection({ animes }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export function SeasonCarouselSection({ animes }) {
   );
 }
 
-/* 4 Category Panels */
+
 const PANELS = [
   {
     icon: <FiTrendingUp size={28} />, path: '/browse/trending',
@@ -77,7 +77,7 @@ const PANELS = [
   },
 ];
 
-// Static bg images (anime collage feel using picsum placeholders by seed)
+
 const BG_IMAGES = [
   'https://cdn.myanimelist.net/images/anime/1015/18006l.jpg',
   'https://cdn.myanimelist.net/images/anime/1171/109222l.jpg',
@@ -114,7 +114,7 @@ function CategoryPanel({ panel, index, bgImage }) {
 
 export function CategoryPanelsSection({ topAnimes }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
-  // Pick 4 covers from top animes as backgrounds
+  
   const bgImages = topAnimes.slice(0, 4).map(
     (a) => a?.images?.jpg?.large_image_url || a?.images?.jpg?.image_url
   );
@@ -138,7 +138,7 @@ export function CategoryPanelsSection({ topAnimes }) {
   );
 }
 
-/* Top 20 Carousel */
+
 export function TopAnimeCarouselSection({ animes }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   const navigate = useNavigate();

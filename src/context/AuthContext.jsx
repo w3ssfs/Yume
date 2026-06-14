@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
           setWatchlist(watch);
           setWatchIds(new Set(watch.map((w) => w.animeId)));
         } catch {
-          /* silent */
+          
         }
       } else {
         setFavorites([]); setFavIds(new Set());
@@ -59,7 +59,7 @@ export function AuthProvider({ children }) {
         setLoginError('Erro ao entrar. Tente novamente.');
         setTimeout(() => setLoginError(null), 4000);
       }
-      // SILENT: popup closed / cancelled — do nothing
+      
     }
   }, []);
 
@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
     try { await logout(); } catch { /* silent */ }
   }, []);
 
-  /* ── Favorites ── */
+  
   const toggleFavorite = useCallback(async (anime) => {
     if (!user) return;
     const id = anime.mal_id;
