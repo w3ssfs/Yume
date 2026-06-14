@@ -17,10 +17,9 @@ const FOOTER_LINKS = {
     { label: 'Lista de Assistir', path: '/favorite'},
   ],
   'Suporte': [
-
-    { label: 'Privacidade', path: null },
-    { label: 'Termos de Uso', path: null },
-    { label: 'Sobre', path: null },
+    { label: 'Privacidade', path: '/privacidade' },
+    { label: 'Termos de Uso', path: '/termos' },
+    { label: 'Sobre', path: '/sobre' },
   ],
 };
 

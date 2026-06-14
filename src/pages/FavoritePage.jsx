@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FiHome, FiChevronRight, FiSearch, FiX,
-  FiHeart, FiBookmark, FiFilter,
+  FiHeart, FiBookmark, FiFilter, FiChevronLeft,
 } from 'react-icons/fi';
 import Header from '../components/Header/Header';
 import { useAuth } from '../context/AuthContext';
@@ -95,6 +95,8 @@ export default function FavoritesPage() {
   const [search, setSearch] = useState('');
   const [genre, setGenre] = useState('');
   const [year, setYear] = useState('');
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 24;
 
   const activeList = tab === 'favorites' ? favorites : watchlist;
 
@@ -109,6 +111,7 @@ export default function FavoritesPage() {
         const name = typeof g === 'string' ? g : g?.name;
         if (name) genres.add(name);
       });
+      if (a.year) years.add(String(a.year));
     });
 
     return {
@@ -132,6 +135,16 @@ export default function FavoritesPage() {
       return titleMatch && genreMatch && yearMatch;
     });
   }, [activeList, search, genre, year]);
+
+  /* Reset page when filters or tab change */
+  useEffect(() => { setPage(1); }, [search, genre, year, tab]);
+
+  /* Paginated slice */
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paged = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    return filtered.slice(start, start + PAGE_SIZE);
+  }, [filtered, page]);
 
   const clearFilters = () => { setSearch(''); setGenre(''); setYear(''); };
 
@@ -205,17 +218,69 @@ export default function FavoritesPage() {
                 </motion.div>
               ) : (
                 <motion.div
-                  key={tab}
+                  key={`${tab}-${page}`}
                   className="fav-grid"
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {filtered.map((anime) => (
+                  {paged.map((anime) => (
                     <AnimeCard key={anime.animeId} anime={anime} />
                   ))}
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Pagination */}
+            {filtered.length > PAGE_SIZE && (
+              <div className="fav-pagination">
+                <motion.button
+                  className="fav-page-btn"
+                  disabled={page === 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FiChevronLeft size={16} />
+                  Anterior
+                </motion.button>
+
+                <div className="fav-page-numbers">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1)
+                    .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+                    .reduce((acc, p, idx, arr) => {
+                      if (idx > 0 && p - arr[idx - 1] > 1) acc.push('...');
+                      acc.push(p);
+                      return acc;
+                    }, [])
+                    .map((p, idx) =>
+                      p === '...' ? (
+                        <span key={`ellipsis-${idx}`} className="fav-page-ellipsis">...</span>
+                      ) : (
+                        <motion.button
+                          key={p}
+                          className={`fav-page-num ${page === p ? 'fav-page-num--active' : ''}`}
+                          onClick={() => setPage(p)}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {p}
+                        </motion.button>
+                      )
+                    )}
+                </div>
+
+                <motion.button
+                  className="fav-page-btn"
+                  disabled={page === totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Próximo
+                  <FiChevronRight size={16} />
+                </motion.button>
+              </div>
+            )}
           </>
         )}
       </div>
