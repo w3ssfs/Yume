@@ -40,7 +40,7 @@
   padding-bottom: 80px;
 }
 
-/* Media */
+
 .cta-section__media {
   display: flex;
   align-items: center;
@@ -79,7 +79,7 @@
   z-index: 2;
 }
 
-/* Text */
+
 .cta-section__text {
   order: 1;
 }

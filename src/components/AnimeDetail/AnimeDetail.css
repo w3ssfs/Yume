@@ -50,7 +50,7 @@
   scrollbar-color: var(--accent-main) transparent;
 }
 
-/* Trailer */
+
 .detail-trailer {
   width: 100%;
   aspect-ratio: 16/9;
@@ -85,7 +85,7 @@
   background: linear-gradient(0deg, rgba(14,14,26,1) 0%, transparent 60%);
 }
 
-/* Info row */
+
 .detail-info-row {
   display: flex;
   gap: 18px;
@@ -144,7 +144,7 @@
   color: #e86db4;
 }
 
-/* Meta col */
+
 .detail-meta-col {
   flex: 1;
   min-width: 0;
@@ -240,7 +240,7 @@
 }
 .detail-mal-link:hover { color: var(--text-primary); }
 
-/* Section */
+
 .detail-section {
   padding: 0 20px 20px;
 }
@@ -261,7 +261,7 @@
   color: var(--text-secondary);
 }
 
-/* Related grid */
+
 .detail-related-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -313,7 +313,7 @@
   border: 1px solid rgba(124,92,191,0.4);
 }
 
-/* Live dot (reused) */
+
 .live-dot {
   width: 7px;
   height: 7px;

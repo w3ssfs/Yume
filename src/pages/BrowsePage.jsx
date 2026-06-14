@@ -40,7 +40,7 @@ function Breadcrumb({ category, isSearch }) {
   );
 }
 
-/* ── Filter bar — same UI/behavior as Favorites page ── */
+
 function FilterBar({ search, onSearch, genre, onGenre, year, onYear, allGenres, allYears, onClear, placeholder }) {
   const hasFilter = search || genre || year;
   return (
@@ -78,7 +78,7 @@ function FilterBar({ search, onSearch, genre, onGenre, year, onYear, allGenres, 
   );
 }
 
-/* Build genre/year option lists from a list of anime items */
+
 function useFilterOptions(items) {
   return useMemo(() => {
     const genres = new Set();
@@ -97,7 +97,7 @@ function useFilterOptions(items) {
   }, [items]);
 }
 
-/* Apply search/genre/year filters to a list of anime items (client-side) */
+
 function applyFilters(items, { search, genre, year }) {
   return (items || []).filter((a) => {
     const title = a.title_english || a.title || '';
@@ -111,7 +111,7 @@ function applyFilters(items, { search, genre, year }) {
   });
 }
 
-/* Category row shown on main browse page */
+
 function CategoryRow({ title, desc, items, loading, onViewAll }) {
   return (
     <div className="browse-cat-row">
@@ -130,7 +130,7 @@ function CategoryRow({ title, desc, items, loading, onViewAll }) {
   );
 }
 
-/* Full paginated category view (with client-side filter bar) */
+
 function CategoryFullView({ category }) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
@@ -212,7 +212,7 @@ function CategoryFullView({ category }) {
   );
 }
 
-/* Search results view (with client-side filter bar on top of API results) */
+
 function SearchResultsView({ query, onQueryChange }) {
   const [localQuery, setLocalQuery] = useState(query);
   const debouncedQuery = useDebounce(localQuery, 450);
@@ -270,7 +270,7 @@ function SearchResultsView({ query, onQueryChange }) {
   );
 }
 
-/* Main Browse Page */
+
 export default function BrowsePage() {
   const { category } = useParams();
   const navigate = useNavigate();
@@ -298,7 +298,7 @@ export default function BrowsePage() {
   const activeCategory = category || 'browse';
   const isSearch = !isCategory && !!debouncedLocal;
 
-  // Combine all loaded landing-page items to build genre/year option lists
+  
   const allLandingItems = useMemo(
     () => [...trending, ...season, ...upcoming, ...popular],
     [trending, season, upcoming, popular]

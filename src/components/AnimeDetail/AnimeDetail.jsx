@@ -5,6 +5,7 @@ import { useDetail } from '../../context/DetailContext';
 import { useAuth } from '../../context/AuthContext';
 import { useAnimeDetail, useAnimeRelations } from '../../hooks/useAnime';
 import './AnimeDetail.css';
+import { jikanApi } from '../../services/jikanApi';
 
 function TrailerEmbed({ url }) {
   if (!url) return null;

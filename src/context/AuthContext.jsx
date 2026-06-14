@@ -96,7 +96,7 @@ export function AuthProvider({ children }) {
 
   const isFavorite = useCallback((animeId) => favIds.has(animeId), [favIds]);
 
-  /* ── Watchlist ── */
+
   const toggleWatchlist = useCallback(async (anime) => {
     if (!user) return;
     const id = anime.mal_id;

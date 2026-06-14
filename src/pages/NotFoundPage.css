@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-/* Progress bar */
+
 .notfound-progress {
     position: fixed;
     top: 0;
@@ -28,20 +28,19 @@
     border-radius: 0 2px 2px 0;
 }
 
-/* Content */
 .notfound-content {
     text-align: center;
     padding: 0 24px;
     max-width: 480px;
 }
 
-/* Icon */
+
 .notfound-icon {
     margin-bottom: 24px;
     color: var(--accent-glow);
 }
 
-/* 404 */
+
 .notfound-title {
     font-size: clamp(5rem, 15vw, 9rem);
     font-weight: 900;
@@ -76,7 +75,7 @@
     font-family: monospace;
 }
 
-/* Buttons */
+
 .notfound-buttons {
     display: flex;
     gap: 12px;
@@ -84,7 +83,7 @@
     flex-wrap: wrap;
 }
 
-/* Primary button */
+
 .btn-primary {
     display: flex;
     align-items: center;
@@ -100,7 +99,7 @@
     font-family: var(--font-body);
 }
 
-/* Secondary button */
+
 .btn-secondary {
     display: flex;
     align-items: center;

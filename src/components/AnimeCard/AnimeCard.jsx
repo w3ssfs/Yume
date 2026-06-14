@@ -73,7 +73,7 @@ export default function AnimeCard({ anime, rank }) {
           </div>
         )}
 
-        {/* ⭐ score */}
+        
         {score && (
           <span className="anime-card__score-badge">
             ⭐ {score}
@@ -122,7 +122,7 @@ export default function AnimeCard({ anime, rank }) {
               })}
             </div>
 
-            {/* ações estilo FavCard */}
+            
             <div
               className="anime-card__actions"
               onClick={(e) => e.stopPropagation()}

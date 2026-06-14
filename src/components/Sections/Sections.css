@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-/* Section header */
+
 .section-head {
   display: flex;
   align-items: flex-end;
@@ -46,7 +46,7 @@
   color: var(--text-primary);
 }
 
-/* Featured blocks */
+
 .section--feature-blocks {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-subtle);
@@ -69,7 +69,7 @@
   grid-template-columns: 1.5fr 1fr 1fr;
 }
 
-/* Featured card */
+
 .featured-card {
   position: relative;
   border-radius: var(--radius-lg);
@@ -142,7 +142,7 @@
   flex-shrink: 0;
 }
 
-/* ─── Category Panels ─── */
+
 .section--cat-panels {
   padding: 60px 0;
 }
@@ -222,7 +222,7 @@
 }
 .cat-panel:hover .cat-panel__action { gap: 8px; }
 
-/* Responsive panels */
+
 @media (max-width: 900px) {
   .cat-panels-grid { grid-template-columns: repeat(2, 1fr); }
 }

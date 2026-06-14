@@ -5,7 +5,7 @@
   pointer-events: none;
 }
 
-/* Red bar track — sits above the header */
+
 .page-loader__bar-track {
   position: fixed;
   top: 0;
@@ -39,7 +39,7 @@
   pointer-events: none;
 }
 
-/* Full overlay */
+
 .page-loader__overlay {
   position: fixed;
   inset: 0;

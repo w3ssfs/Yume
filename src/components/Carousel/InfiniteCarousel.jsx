@@ -12,7 +12,7 @@ export default function InfiniteCarousel({ items = [], speed = 0.5, showRank = f
 const uniqueItems = [
   ...new Map(items.map(item => [item.mal_id, item])).values()
 ];
-  // Duplicate items to make infinite effect
+  
 const visibleItems = uniqueItems.slice(0, 24);
 const doubled = [...visibleItems, ...visibleItems];
 

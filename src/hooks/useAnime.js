@@ -101,9 +101,7 @@ export function useUpcomingAnime(limit = 12, page = 1) {
   );
 }
 
-/* ============================= */
-/* HERO */
-/* ============================= */
+
 
 export function useFeatured() {
   return useAnimeList(
@@ -113,9 +111,7 @@ export function useFeatured() {
   );
 }
 
-/* ============================= */
-/* BUSCA */
-/* ============================= */
+
 
 export function useSearch() {
   const [results, setResults] = useState([]);
@@ -173,9 +169,7 @@ export function useSearch() {
   };
 }
 
-/* ============================= */
-/* DETALHES */
-/* ============================= */
+
 
 export function useAnimeDetail(animeId) {
   const [data, setData] = useState(null);
@@ -206,9 +200,7 @@ export function useAnimeDetail(animeId) {
   return { data, loading };
 }
 
-/* ============================= */
-/* RELAÇÕES */
-/* ============================= */
+
 
 export function useAnimeRelations(animeId) {
   const [data, setData] = useState([]);

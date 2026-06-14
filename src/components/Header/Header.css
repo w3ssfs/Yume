@@ -49,14 +49,14 @@
   background-clip: text;
 }
 
-/* Controls */
+
 .header__controls {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-/* Search */
+
 .header__search {
   position: relative;
 }
@@ -124,7 +124,7 @@
   background: rgba(255,255,255,0.1);
 }
 
-/* Search Dropdown */
+
 .search-dropdown {
   position: absolute;
   top: calc(100% + 10px);
@@ -217,7 +217,7 @@
   transition: background var(--transition-fast);
 }
 
-/* Login Button */
+
 .header__login-btn {
   display: flex;
   align-items: center;
@@ -237,7 +237,7 @@
   border-color: var(--accent-glow);
 }
 
-/* User Menu */
+
 .user-menu {
   position: relative;
 }
@@ -291,7 +291,7 @@
   color: var(--text-muted);
 }
 
-/* Dropdown */
+
 .user-menu__dropdown {
   position: absolute;
   top: calc(100% + 10px);
@@ -422,12 +422,12 @@
   display: block;
 }
 
-/* Make user-menu trigger non-clickable (hover only) */
+
 .user-menu__trigger {
   cursor: default;
 }
 
-/* Avatar photo support */
+
 .user-menu__avatar img {
   width: 100%;
   height: 100%;
@@ -435,7 +435,7 @@
   object-fit: cover;
 }
 
-/* Nav grid trigger zone — needs a visible element to hover */
+
 .nav-grid-wrap {
   padding: 0 4px;
 }
@@ -450,12 +450,12 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
-/* Avatar img */
+
 .user-menu__avatar img {
   width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
 }
 
-/* Mobile header */
+
 @media (max-width: 768px) {
   .header__login-btn span { display: none; }
   .user-menu__name { display: none; }

@@ -425,7 +425,7 @@
     opacity: 0.88;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .fav-filters {
         flex-direction: column;
@@ -457,7 +457,7 @@
     }
 }
 
-/* Pagination */
+
 .fav-pagination {
   display: flex;
   align-items: center;

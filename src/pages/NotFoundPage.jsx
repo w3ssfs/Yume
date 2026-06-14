@@ -31,7 +31,7 @@ export default function NotFoundPage() {
 
   return (
     <div className="notfound-page">
-      {/* Progress bar */}
+     
       <div className="notfound-progress">
         <motion.div
           className="notfound-progress-bar"
@@ -40,7 +40,7 @@ export default function NotFoundPage() {
         />
       </div>
 
-      {/* Content */}
+      
       <motion.div
         className="notfound-content"
         initial={{ opacity: 0, y: 30 }}
