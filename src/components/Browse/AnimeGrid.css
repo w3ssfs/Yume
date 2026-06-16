@@ -108,3 +108,13 @@
   .page-btn span { display: none; }
   .anime-grid__pagination { gap: 6px; }
 }
+
+@media (max-width: 480px) {
+  .anime-grid,
+  .anime-grid--loading {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 9px;
+  }
+  .anime-grid__pagination { padding: 20px 0 36px; gap: 5px; }
+  .page-btn { padding: 7px 10px; font-size: 12px; }
+}

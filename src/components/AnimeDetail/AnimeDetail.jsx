@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiStar, FiHeart, FiBookmark, FiPlay, FiExternalLink, FiCalendar, FiFilm } from 'react-icons/fi';
 import { useDetail } from '../../context/DetailContext';
 import { useAuth } from '../../context/AuthContext';
-import { useAnimeDetail, useAnimeRelations } from '../../hooks/useAnime';
+import { useAnimeDetail } from '../../hooks/useAnime';
 import './AnimeDetail.css';
 import { jikanApi } from '../../services/jikanApi';
 
@@ -25,32 +25,11 @@ function TrailerEmbed({ url }) {
   );
 }
 
-function RelatedCard({ entry, onClick }) {
-  return (
-    <motion.div
-      className="related-card"
-      onClick={onClick}
-      whileHover={{ scale: 1.04 }}
-      transition={{ duration: 0.18 }}
-    >
-      {entry.images?.jpg?.image_url ? (
-        <img src={entry.images.jpg.image_url} alt={entry.title} loading="lazy" />
-      ) : (
-        <div className="related-card__placeholder" />
-      )}
-      <div className="related-card__info">
-        <p className="related-card__title">{entry.title}</p>
-        <span className="related-card__type">{entry.type}</span>
-      </div>
-    </motion.div>
-  );
-}
 
 export default function AnimeDetail() {
   const { selectedAnime, closeDetail, openDetail } = useDetail();
   const { user, isFavorite, toggleFavorite, isInWatchlist, toggleWatchlist } = useAuth();
   const { data: anime, loading } = useAnimeDetail(selectedAnime?.mal_id);
-  const relations = useAnimeRelations(selectedAnime?.mal_id);
   const [bodyLocked, setBodyLocked] = useState(false);
 
   const isOpen = !!selectedAnime;
@@ -88,9 +67,7 @@ export default function AnimeDetail() {
   const fav = selectedAnime ? isFavorite(selectedAnime.mal_id) : false;
   const inWL = selectedAnime ? isInWatchlist(selectedAnime.mal_id) : false;
   
-  const relatedEntries = relations.flatMap((rel) =>
-    rel.entry.filter((e) => e.type === 'anime').map((e) => ({ ...e, relation: rel.relation }))
-  ).slice(0, 10);
+
 
   return (
     <AnimatePresence>
@@ -244,22 +221,8 @@ export default function AnimeDetail() {
                   <p className="detail-synopsis">{synopsis}</p>
                 </div>
               )}
-
+             
               
-              {relatedEntries.length > 0 && (
-                <div className="detail-section">
-                  <h3 className="detail-section__title">Relacionados</h3>
-                  <div className="detail-related-grid">
-                    {relatedEntries.map((entry) => (
-                      <RelatedCard
-                        key={`${entry.mal_id}-${entry.relation}`}
-                        entry={entry}
-                        onClick={() => openDetail({ mal_id: entry.mal_id, title: entry.title })}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </motion.aside>
         </>

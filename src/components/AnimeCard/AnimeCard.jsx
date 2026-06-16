@@ -51,7 +51,13 @@ export default function AnimeCard({ anime, rank }) {
 
   return (
     <motion.div
-      className="anime-card"
+      className={`anime-card ${
+    fav
+      ? 'anime-card--favorited'
+      : inWL
+      ? 'anime-card--watchlist'
+      : ''
+  }`}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       whileHover={{ scale: 1.06, zIndex: 10 }}
@@ -78,6 +84,12 @@ export default function AnimeCard({ anime, rank }) {
           <span className="anime-card__score-badge">
             ⭐ {score}
           </span>
+        )}
+
+        {fav && (
+          <div className="anime-card__fav-indicator">
+            <FiHeart size={13} fill="#e86db4" />
+          </div>
         )}
       </div>
 

@@ -119,61 +119,77 @@ img {
 }
 
 @media (max-width: 768px) {
-  .container { padding: 0 16px; }
+  .container { padding: 0 14px; }
 
-  /* Header */
+  
   .header__login-btn span { display: none; }
+  .header__login-btn { padding: 8px 10px; }
   .user-menu__name { display: none; }
+  .nav-grid { width: calc(100vw - 28px); right: -40px; grid-template-columns: 1fr; max-height: 70vh; overflow-y: auto; }
 
-  /* Hero */
-  .hero-slide__content { padding-bottom: 80px; }
+  
   .hero-slide__synopsis { display: none; }
+  .hero-slide__title { font-size: clamp(1.6rem, 6vw, 2.6rem); }
+  .hero__content, .hero-slide__content { padding-bottom: 80px; padding-left: 14px; max-width: 100%; }
+  .hero-slide__actions { flex-wrap: wrap; gap: 8px; }
+  .hero-btn { padding: 10px 18px; font-size: 13px; }
 
-  /* Sections */
-  .section { padding: 48px 0; }
-  .section-head { flex-direction: column; align-items: flex-start; gap: 10px; }
 
-  /* Feature grid */
+  .section { padding: 40px 0; }
+  .section--season, .section--top { padding: 36px 0; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 16px; }
+  .section-head__title { font-size: 1.4rem; }
+
+  
+  .cat-panels-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cat-panel { aspect-ratio: 3/4; }
+  .cat-panel__label { font-size: 1rem; }
+
+ 
   .feature-grid__row,
-  .feature-grid__row--reverse {
-    grid-template-columns: 1fr 1fr;
-  }
+  .feature-grid__row--reverse { grid-template-columns: 1fr 1fr; gap: 10px; }
   .feature-grid__row > *:last-child { grid-column: span 2; }
   .feature-grid__row--reverse > *:first-child { grid-column: span 2; }
 
-  /* CTA */
-  .cta-section__inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
+ 
+  .cta-section__inner { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
   .cta-section__media { order: 1; }
   .cta-section__text { order: 2; }
+  .cta-section__heading { font-size: 1.8rem; }
+  .cta-section__stats { gap: 20px; }
+  .cta-stat__value { font-size: 1.5rem; }
 
-  /* Footer */
-  .footer__top-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
+  
+  .footer__top-inner { grid-template-columns: 1fr 1fr; gap: 24px; }
   .footer__brand { grid-column: span 2; }
+  .footer__top { padding: 48px 0 32px; }
 }
 
 @media (max-width: 480px) {
-  /* Header */
-  .header { padding: 12px 0; }
-  .header__logo-jp { font-size: 18px; }
-  .header__logo-text { font-size: 15px; }
+  .container { padding: 0 12px; }
 
-  /* Hero */
-  .hero-slide__title { font-size: 1.8rem; }
-  .hero-btn { padding: 10px 18px; font-size: 13px; }
+ 
+  .header { padding: 10px 0; }
+  .header__logo-jp { font-size: 17px; }
+  .header__logo-text { font-size: 14px; }
+  .header__controls { gap: 8px; }
 
-  /* Footer */
-  .footer__top-inner { grid-template-columns: 1fr 1fr; }
+ 
+  .hero-slide__title { font-size: 1.5rem; }
+  .hero-meta-pill { font-size: 11px; padding: 3px 8px; }
+  .hero-slide__genres { gap: 5px; margin-bottom: 10px; }
+  .hero-slide__actions { gap: 8px; }
+  .hero-btn { padding: 9px 14px; font-size: 12px; flex: 1; justify-content: center; }
+
+
+  .section { padding: 32px 0; }
+  .section-head__title { font-size: 1.2rem; }
+  .cat-panels-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+
+  .footer__top-inner { grid-template-columns: 1fr 1fr; gap: 20px; }
   .footer__brand { grid-column: span 2; }
-  .footer__bottom-inner { flex-direction: column; gap: 10px; text-align: center; }
-
-  /* AnimeCard smaller */
-  .anime-card { width: 140px; }
+  .footer__bottom-inner { flex-direction: column; gap: 8px; text-align: center; }
+  .footer__badges { justify-content: center; }
+  .footer__socials { justify-content: center; }
 }

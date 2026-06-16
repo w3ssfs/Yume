@@ -16,6 +16,66 @@
   inset: 0;
 }
 
+.anime-card--favorited {
+  border: 2px solid rgba(255, 215, 0, 0.75);
+
+  box-shadow:
+    0 0 0 1px rgba(255, 215, 0, 0.25),
+    0 0 18px rgba(255, 215, 0, 0.35),
+    0 0 40px rgba(255, 215, 0, 0.18),
+    var(--shadow-card);
+
+  animation: favoriteGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes favoriteGlow {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 215, 0, 0.25),
+      0 0 18px rgba(255, 215, 0, 0.35),
+      0 0 40px rgba(255, 215, 0, 0.18),
+      var(--shadow-card);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 215, 0, 0.4),
+      0 0 24px rgba(255, 215, 0, 0.55),
+      0 0 55px rgba(255, 215, 0, 0.3),
+      var(--shadow-card);
+  }
+}
+
+
+.anime-card--watchlist {
+  border: 1px solid rgba(124, 92, 191, 0.6);
+
+  box-shadow:
+    0 0 0 1px rgba(124, 92, 191, 0.12),
+    0 0 14px rgba(124, 92, 191, 0.22),
+    var(--shadow-card);
+
+  animation: watchlistGlow 3s ease-in-out infinite;
+}
+
+@keyframes watchlistGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(124, 92, 191, 0.12),
+      0 0 14px rgba(124, 92, 191, 0.22),
+      var(--shadow-card);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(124, 92, 191, 0.2),
+      0 0 22px rgba(124, 92, 191, 0.35),
+      var(--shadow-card);
+  }
+}
+
 .anime-card__image-wrap img {
   width: 100%;
   height: 100%;
@@ -30,11 +90,9 @@
 .anime-card__image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 40%,
-    rgba(8,8,16,0.92) 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 40%,
+      rgba(8, 8, 16, 0.92) 100%);
   transition: opacity var(--transition-med);
   opacity: 0.9;
   pointer-events: none;
@@ -81,8 +139,17 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
 }
 
 .anime-card__rank {
@@ -93,7 +160,7 @@
   font-size: 11px;
   font-weight: 800;
   color: var(--accent-glow);
-  background: rgba(8,8,16,0.85);
+  background: rgba(8, 8, 16, 0.85);
   padding: 3px 8px;
   border-radius: 20px;
   border: 1px solid var(--border-accent);
@@ -170,7 +237,7 @@
   padding: 2px 6px;
   border-radius: 20px;
 
-  background: rgba(124,92,191,0.2);
+  background: rgba(124, 92, 191, 0.2);
   color: #c7b6ff;
   border: none;
 }
@@ -185,7 +252,7 @@
   border-radius: 8px;
 
   border: 1px solid var(--border-subtle);
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text-secondary);
 
   cursor: pointer;
@@ -194,10 +261,11 @@
 
 
 .anime-card__btn:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   color: var(--text-primary);
   transform: translateY(-1px);
 }
+
 .anime-card__actions {
   display: flex;
   gap: 6px;
@@ -212,15 +280,16 @@
   transform: translateY(0);
   opacity: 1;
 }
+
 .anime-card__btn--fav {
   color: #e86db4;
-  background: rgba(232,109,180,0.15);
-  border-color: rgba(232,109,180,0.4);
+  background: rgba(232, 109, 180, 0.15);
+  border-color: rgba(232, 109, 180, 0.4);
 }
 
 /* ativo - watchlist */
 .anime-card__btn--wl {
   color: var(--accent-glow);
-  background: rgba(124,92,191,0.15);
-  border-color: rgba(124,92,191,0.4);
+  background: rgba(124, 92, 191, 0.15);
+  border-color: rgba(124, 92, 191, 0.4);
 }

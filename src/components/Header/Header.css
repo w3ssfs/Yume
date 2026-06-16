@@ -458,12 +458,26 @@
 
 @media (max-width: 768px) {
   .header__login-btn span { display: none; }
+  .header__login-btn { padding: 8px; min-width: 36px; justify-content: center; }
   .user-menu__name { display: none; }
-  .nav-grid { width: calc(100vw - 32px); right: -80px; grid-template-columns: 1fr; }
+  .nav-grid {
+    width: calc(100vw - 28px);
+    right: 0;
+    left: auto;
+    grid-template-columns: 1fr;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .search-dropdown { width: calc(100vw - 28px); right: 0; left: auto; }
 }
+
 @media (max-width: 480px) {
   .header { padding: 10px 0; }
-  .header__logo-jp { font-size: 18px; }
-  .header__logo-text { font-size: 15px; }
+  .header__logo-jp { font-size: 17px; }
+  .header__logo-text { font-size: 14px; }
+  .header__controls { gap: 8px; }
   .search-bar { height: 34px; }
+  .user-menu__trigger { padding: 4px 8px 4px 4px; }
+  .user-menu__avatar { width: 26px; height: 26px; }
+  .user-menu__dropdown { right: 0; width: min(220px, calc(100vw - 24px)); }
 }
