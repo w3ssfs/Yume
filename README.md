@@ -73,11 +73,15 @@ Este projeto não é afiliado ao MyAnimeList ou ao Jikan.
 
 ## 📸 Screenshots
 
-```md
-![Home](./screenshots/home.png)
-![Detalhes](./screenshots/details.png)
-![Favoritos](./screenshots/favorites.png)
-```
+
+
+<img width="1919" height="902" alt="image" src="https://github.com/user-attachments/assets/abbaf824-2440-480c-85ca-501c1d95ee35" />
+
+<img width="1919" height="892" alt="image" src="https://github.com/user-attachments/assets/83b3dacb-f456-47ba-9b22-f01253c3b035" />
+
+<img width="1919" height="909" alt="image" src="https://github.com/user-attachments/assets/a2a7288b-1a96-4bfa-87c5-55630b68ad44" />
+
+
 
 ---
 
