@@ -6,7 +6,7 @@ import Header from '../components/Header/Header';
 import BrowseCarousel from '../components/Browse/BrowseCarousel';
 import AnimeGrid from '../components/Browse/AnimeGrid';
 import { useDebounce } from '../hooks/useDebounce';
-import { useSearch, useCurrentSeason, useTrendingAnime, useUpcomingAnime, useTopAnime } from '../hooks/useAnime';
+import { useSearch, useCurrentSeason, useTrendingAnime, useUpcomingAnime } from '../hooks/useAnime';
 import jikanApi from '../services/jikanApi';
 import './BrowsePage.css';
 
@@ -15,10 +15,8 @@ const CATEGORIES = {
   trending: { label: 'Animes em Lançamentos', desc: 'Veja os animes que estão em alta no momento.' },
   season: { label: 'Temporada 2026', desc: 'Veja os animes que foram ao ar na temporada atual.' },
   upcoming: { label: 'Lançamentos Futuros', desc: 'Veja os animes que serão exibidos nas próximas temporadas.' },
-  popular: { label: 'Mais Populares', desc: 'Veja os animes mais populares de todos os tempos.' },
 };
 
-/* Breadcrumb */
 function Breadcrumb({ category, isSearch }) {
   const isDeep = (category && category !== 'browse') || isSearch;
   return (
@@ -152,8 +150,7 @@ function CategoryFullView({ category }) {
     const fetchers = {
       trending: () => jikanApi.getTrendingAnime(24, page),
       season: () => jikanApi.getCurrentSeason(page),
-      upcoming: () => jikanApi.getUpcomingAnime(24, page),
-      popular: () => jikanApi.getTopAnime(24, page),
+      upcoming: () => jikanApi.getUpcomingAnime(24, page)
     };
 
     const fn = fetchers[category];
@@ -281,14 +278,13 @@ export default function BrowsePage() {
   const [localSearch, setLocalSearch] = useState(urlQuery);
   const debouncedLocal = useDebounce(localSearch, 500);
 
-  // Filters for the main browse landing page categories
+  
   const [mainGenre, setMainGenre] = useState('');
   const [mainYear, setMainYear] = useState('');
 
   const { data: trending, loading: l1 } = useTrendingAnime(12);
   const { data: season, loading: l2 } = useCurrentSeason(1);
   const { data: upcoming, loading: l4 } = useUpcomingAnime(12);
-  const { data: popular, loading: l5 } = useTopAnime(12);
 
   useEffect(() => {
     setLocalSearch(urlQuery);
@@ -300,15 +296,14 @@ export default function BrowsePage() {
 
   
   const allLandingItems = useMemo(
-    () => [...trending, ...season, ...upcoming, ...popular],
-    [trending, season, upcoming, popular]
+    () => [...trending, ...season, ...upcoming],
+    [trending, season, upcoming]
   );
   const { allGenres, allYears } = useFilterOptions(allLandingItems);
 
   const filteredTrending = useMemo(() => applyFilters(trending, { search: '', genre: mainGenre, year: mainYear }), [trending, mainGenre, mainYear]);
   const filteredSeason = useMemo(() => applyFilters(season, { search: '', genre: mainGenre, year: mainYear }), [season, mainGenre, mainYear]);
   const filteredUpcoming = useMemo(() => applyFilters(upcoming, { search: '', genre: mainGenre, year: mainYear }), [upcoming, mainGenre, mainYear]);
-  const filteredPopular = useMemo(() => applyFilters(popular, { search: '', genre: mainGenre, year: mainYear }), [popular, mainGenre, mainYear]);
 
   const clearMainFilters = () => { setLocalSearch(''); setMainGenre(''); setMainYear(''); };
 
@@ -336,8 +331,8 @@ export default function BrowsePage() {
                 items={filteredSeason} loading={l2} onViewAll={() => navigate('/browse/season')} />
               <CategoryRow title="Lançamentos Futuros" desc="Veja os animes que serão exibidos nas próximas temporadas."
                 items={filteredUpcoming} loading={l4} onViewAll={() => navigate('/browse/upcoming')} />
-              <CategoryRow title="Mais Populares" desc="Veja os animes mais populares de todos os tempos."
-                items={filteredPopular} loading={l5} onViewAll={() => navigate('/browse/popular')} />
+              
+      
             </div>
           </>
         ) : isCategory ? (

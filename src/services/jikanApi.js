@@ -17,12 +17,6 @@ function getCache(key) {
 }
 function setCache(key, data) { cache.set(key, { data, ts: Date.now() }); }
 
-// ─── Rate-limit: burst window (3 req/window, window = 500ms) ────────────────
-// Jikan allows ~3 req/s. Instead of serialising ALL calls with a 400ms gap
-// (which made 6 calls take 2.4s before any response), we track how many
-// requests have fired in the current 500ms window and only pause when we've
-// hit 3 in the same window. This lets the first 3 requests fire immediately
-// (covering most homepage loads) while still preventing 429s.
 const WINDOW_MS   = 500;
 const MAX_PER_WIN = 3;
 let windowStart   = 0;
@@ -38,7 +32,7 @@ async function rateLimited(fn) {
     windowCount = 0;
   }
   if (windowCount >= MAX_PER_WIN) {
-    // Wait until the current window expires
+    
     const wait = WINDOW_MS - (now - windowStart) + 10;
     await sleep(wait);
     windowStart = Date.now();
@@ -47,13 +41,11 @@ async function rateLimited(fn) {
   windowCount++;
   return fn();
 }
-
-// ─── Core fetch (cache → dedup → rate-limit → retry) ────────────────────────
 async function get(key, endpoint) {
   const hit = getCache(key);
   if (hit) return hit;
 
-  // Dedup concurrent identical requests
+  
   if (pending.has(key)) return pending.get(key);
 
   const promise = (async () => {
@@ -64,7 +56,7 @@ async function get(key, endpoint) {
         return res.data;
       } catch (err) {
         if (err?.response?.status === 429 && attempt < 3) {
-          await sleep(1000 * (attempt + 1)); // 1s, 2s, 3s
+          await sleep(1000 * (attempt + 1)); 
           continue;
         }
         throw err;

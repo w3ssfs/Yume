@@ -68,7 +68,7 @@ const NAV_ITEMS = [
   { icon: <FiGlobe size={19}/>,      label: 'Browse',          desc: 'Browse top, airing e próximos.',           path: '/browse' },
   { icon: <FiTrendingUp size={19}/>, label: 'Trending Now',    desc: 'Animes em alta agora.',                    path: '/browse/trending' },
   { icon: <FiSun size={19}/>,        label: 'Temporada 2026',  desc: 'Animes da temporada atual.',               path: '/browse/season' },
-  { icon: <FiThumbsUp size={19}/>,   label: 'Popular',         desc: 'Os mais populares de todos os tempos.',    path: '/browse/popular' },
+  { icon: <FiThumbsUp size={19}/>,   label: 'Popular',         desc: 'Os mais populares de todos os tempos.',    path: '/browse' },
   { icon: <FiClock size={19}/>,      label: 'Próximos',        desc: 'Animes que estreiam em breve.',            path: '/browse/upcoming' },
 ];
 

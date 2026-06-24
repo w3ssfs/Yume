@@ -85,7 +85,7 @@ export default function CallToAction({ anime }) {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
-              <Link to="/browse/popular" className="hero-btn hero-btn--secondary">
+              <Link to="/browse" className="hero-btn hero-btn--secondary">
                 <FiBookOpen size={16} />
                 Explorar Catálogo
               </Link>

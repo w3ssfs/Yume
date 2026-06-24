@@ -69,13 +69,6 @@ export function useCurrentSeason(page = 1) {
   );
 }
 
-export function useTopAnime(limit = 12, page = 1) {
-  return useAnimeList(
-    `top-${limit}-${page}`,
-    () => jikanApi.getTopAnime(limit, page),
-    [limit, page]
-  );
-}
 
 export function useTrendingAnime(limit = 12, page = 1) {
   return useAnimeList(

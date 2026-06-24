@@ -64,7 +64,7 @@ const PANELS = [
     bgQuery: 'season',
   },
   {
-    icon: <FiThumbsUp size={28} />, path: '/browse/popular',
+    icon: <FiThumbsUp size={28} />, path: '/browse',
     label: 'Popular', desc: 'View the most popular Anime of all time.',
     action: 'BROWSE', accentColor: '#5cb8e8',
     bgQuery: 'popular',
@@ -147,7 +147,7 @@ export function TopAnimeCarouselSection({ animes }) {
       <div className="container">
         <SectionHeader label="Ranking Global" title="Top 20 Animes"
           subtitle="Os mais amados da comunidade"
-          action="Ver ranking completo" onAction={() => navigate('/browse/popular')} />
+          action="Ver ranking completo" onAction={() => navigate('/browse')} />
       </div>
       <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.2 }}>
