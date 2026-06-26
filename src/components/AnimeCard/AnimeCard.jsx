@@ -55,7 +55,7 @@ async function fetchAllRelated(rootId, signal) {
     for (const entry of relevant) {
       if (visited.has(entry.mal_id) || signal?.aborted) continue;
 
-      await sleep(400); // respeita 3 req/s da Jikan
+      await sleep(400); 
       if (signal?.aborted) return;
 
       let data;

@@ -79,7 +79,7 @@ export default function Footer() {
           </p>
           <div className="footer__badges">
             <span className="footer__badge">Não afiliado ao MAL</span>
-            <span className="footer__badge footer__badge--accent">Versão 1.0.5</span>
+            <span className="footer__badge footer__badge--accent">Versão 1.1.0</span>
           </div>
         </div>
       </div>

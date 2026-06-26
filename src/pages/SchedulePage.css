@@ -1,0 +1,253 @@
+.sched-page {
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 80px;
+}
+
+.sched-page__inner {
+  max-width: 900px;
+}
+
+.sched-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sched-top__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sched-top__icon {
+  color: var(--accent-glow);
+  flex-shrink: 0;
+}
+
+.sched-top__title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.sched-top__sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Botão refresh */
+.sched-refresh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+
+.sched-refresh:hover {
+  color: var(--accent-glow);
+  border-color: var(--border-accent);
+  background: rgba(124, 92, 191, 0.08);
+}
+
+.sched-refresh--spinning svg {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sched-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.sched-state--error {
+  color: #e85c5c;
+}
+
+.sched-state--error button {
+  color: var(--accent-glow);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 14px;
+}
+
+
+.sched-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+
+.sched-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.sched-card--today {
+  border-color: rgba(124, 92, 191, 0.4);
+  box-shadow: 0 0 0 1px rgba(124, 92, 191, 0.08), var(--shadow-glow);
+}
+
+/* Cabeçalho do card */
+.sched-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.sched-card--today .sched-card__header {
+  background: rgba(124, 92, 191, 0.1);
+  border-bottom-color: rgba(124, 92, 191, 0.18);
+}
+
+.sched-card__day-info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.sched-card__primary {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.sched-card--today .sched-card__primary {
+  color: var(--accent-glow);
+}
+
+.sched-card__secondary {
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.55;
+}
+
+.sched-card__count {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+
+.sched-card__list {
+  display: flex;
+  flex-direction: column;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.sched-card__list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.sched-card__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sched-card__list::-webkit-scrollbar-thumb {
+  background: rgba(124, 92, 191, 0.3);
+  border-radius: 3px;
+}
+
+
+.sched-entry {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background 0.12s;
+}
+
+.sched-entry:last-child {
+  border-bottom: none;
+}
+
+.sched-entry:hover {
+  background: rgba(124, 92, 191, 0.07);
+}
+
+.sched-entry--past {
+  opacity: 0.38;
+}
+
+.sched-entry--past .sched-entry__time {
+  color: var(--text-muted);
+}
+
+.sched-entry__time {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.sched-entry__title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.sched-entry__ep {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+
+@media (max-width: 640px) {
+  .sched-page {
+    padding-top: 86px;
+  }
+
+  .sched-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sched-top__title {
+    font-size: 1.2rem;
+  }
+}

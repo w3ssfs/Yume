@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
   FiSearch, FiX, FiHeart, FiLogOut,
-  FiChevronDown, FiGlobe, FiTrendingUp, FiSun, FiThumbsUp, FiClock,
+  FiChevronDown, FiGlobe, FiTrendingUp, FiSun, FiThumbsUp, FiClock, FiCalendar,
 } from 'react-icons/fi';
 import { useSearch } from '../../hooks/useAnime';
 import { useDebounce } from '../../hooks/useDebounce';
@@ -70,6 +70,7 @@ const NAV_ITEMS = [
   { icon: <FiSun size={19}/>,        label: 'Temporada 2026',  desc: 'Animes da temporada atual.',               path: '/browse/season' },
   { icon: <FiThumbsUp size={19}/>,   label: 'Popular',         desc: 'Os mais populares de todos os tempos.',    path: '/browse' },
   { icon: <FiClock size={19}/>,      label: 'Próximos',        desc: 'Animes que estreiam em breve.',            path: '/browse/upcoming' },
+  { icon: <FiCalendar size={19}/>,   label: 'Agenda',          desc: 'Episódios desta semana por horário.',      path: '/agenda' },
 ];
 
 function NavGridMenu() {
@@ -166,7 +167,7 @@ function UserMenu() {
             exit={{ opacity: 0, y: -10, scale: 0.97 }}
             transition={{ duration: 0.16, ease: [0.4,0,0.2,1] }}
             style={{ transformOrigin: 'top right' }}>
-            {/* User info */}
+           
             <div className="user-menu__header">
               <div className="user-menu__avatar user-menu__avatar--lg">
                 {user.photoURL
@@ -184,6 +185,12 @@ function UserMenu() {
               onClick={() => { navigate('/favorite'); setOpen(false); }}
               whileHover={{ x: 3 }} transition={{ duration: 0.12 }}>
               <FiHeart size={15} /> Meus Favoritos
+            </motion.button>
+
+            <motion.button className="user-menu__item"
+              onClick={() => { navigate('/agenda'); setOpen(false); }}
+              whileHover={{ x: 3 }} transition={{ duration: 0.12 }}>
+              <FiCalendar size={15} /> Agenda da Semana
             </motion.button>
 
             <div className="user-menu__divider" />
